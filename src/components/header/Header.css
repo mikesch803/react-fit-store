@@ -1,0 +1,19 @@
+.header {
+  grid-area: header;
+}
+
+.navbar-login,
+.navbar-shop,
+.navbar-title a {
+  color: var(--COLOR-FT);
+  background: none;
+}
+
+.bg-num {
+  top: -0.07rem;
+  background-color: var(--COLOR-ERROR);
+}
+
+.bg-icon {
+  color: var(--COLOR-FT);
+}

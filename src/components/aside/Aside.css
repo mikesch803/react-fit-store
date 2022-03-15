@@ -1,0 +1,32 @@
+.aside-product {
+  grid-area: aside;
+}
+
+.sidebar-product {
+  margin: 2rem;
+}
+
+.sidebar,
+.aside-rating,
+.aside-category,
+.aside-sort {
+  display: flex;
+  flex-direction: column;
+  line-height: 2;
+}
+
+.aside-category > label > input,
+.aside-rating > label > input,
+.aside-sort > label > input {
+  margin-right: 5px;
+}
+
+.aside-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.aside-filter-clear {
+  margin: 1rem;
+}

@@ -1,0 +1,32 @@
+.grid-layout-login {
+  display: grid;
+  height: 100vh;
+  grid-template-areas:
+    "header header header"
+    "... ... ..."
+    "... login ..."
+    "... ... ...";
+}
+
+.form-login {
+  grid-area: login;
+  padding: 1rem;
+  justify-content: center;
+  background-color: var(--COLOR-FT);
+  gap: 0.5rem;
+}
+
+.form-btn {
+  margin-top: 0;
+}
+
+.title-form,
+.link-account {
+  text-align: center;
+}
+
+.form-checkbox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

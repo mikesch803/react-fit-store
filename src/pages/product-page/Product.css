@@ -1,0 +1,41 @@
+.grid-layout-product {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr 2fr 2fr;
+  grid-template-areas:
+    "header header header"
+    "aside product product"
+    "aside product product";
+}
+
+.product {
+  grid-area: product;
+}
+
+.product-section-title {
+  margin-left: 5.3rem;
+  margin-top: 1rem;
+}
+
+.product-component {
+  padding: 2rem;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  list-style-type: none;
+}
+
+.card-img {
+  object-fit: contain;
+}
+
+.category,
+.star,
+.sort,
+.aside-filter-clear {
+  cursor: pointer;
+}
