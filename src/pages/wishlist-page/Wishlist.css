@@ -1,0 +1,41 @@
+.grid-layout-wishlist {
+  display: grid;
+  height: 100vh;
+  grid-template-areas:
+    "header header header"
+    "wishlist wishlist wishlist"
+    "wishlist wishlist wishlist";
+}
+
+.wishlist {
+  grid-area: wishlist;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 1rem;
+}
+
+.card-dismis-btn {
+  color: var(--COLOR-ERROR);
+}
+
+.card-img-hz {
+  width: 10rem;
+  height: 10rem;
+}
+
+.card-img {
+  object-fit: contain;
+}
+
+.card-price,
+.card-mrp {
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.card-mrp {
+  font-size: 1rem;
+}
