@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
-
+import { makeServer } from "./server";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,4 +15,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+makeServer();
 
