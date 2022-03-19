@@ -4,12 +4,15 @@
 
 .sidebar-product {
   margin: 2rem;
+  position: sticky;
+  top: 0;
 }
 
 .sidebar,
 .aside-rating,
 .aside-category,
-.aside-sort {
+.aside-sort,
+.aside-availablity {
   display: flex;
   flex-direction: column;
   line-height: 2;
@@ -17,7 +20,8 @@
 
 .aside-category > label > input,
 .aside-rating > label > input,
-.aside-sort > label > input {
+.aside-sort > label > input,
+.aside-availablity >label >input {
   margin-right: 5px;
 }
 
