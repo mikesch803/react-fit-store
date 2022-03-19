@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./LandingPage.css";
-import { landingPoster, product1, product2 } from "../../assests/images";
+import { landingPoster } from "../../assests/images";
 import { Footer, Header } from "../../components";
+import { brandLogoData } from "../../data/home-page-data/home.data";
+import { FilterContext } from "../../context/filter-context";
+import { Link } from "react-router-dom";
 
 export function LandingPage() {
+  const { dispatch } = useContext(FilterContext);
+
   return (
     <div className="grid-layout-home">
       <Header />
@@ -16,25 +21,25 @@ export function LandingPage() {
           </h2>
         </div>
       </main>
-      <section className="section-bottom-left">
-        <img src={product1} alt="protein-powder" className="img-bottom-left" />
-        <div>
-          <p className="ft-w-400 ft-grey">My Protein</p>
-          <p className="ft-w-400 ft-grey">New Arrivals</p>
-        </div>
-      </section>
-      <section className="section-bottom-mid">
-        <img src={product2} alt="protein-powder" className="img-bottom-mid" />
-        <div>
-          <p className="ft-w-400 ft-grey">My Protein</p>
-          <p className="ft-w-400 ft-grey">New Arrivals</p>
-        </div>
-      </section>
-      <section className="section-bottom-right">
-        <img src={product1} alt="protein-powder" className="img-bottom-right" />
-        <div>
-          <p className="ft-w-400 ft-grey">My Protein</p>
-          <p className="ft-w-400 ft-grey">New Arrivals</p>
+
+      <section className="section-home">
+        <h2 className="txt-center brand-heading">Feature Brands</h2>
+        <div className="section-brands">
+          {brandLogoData.map((item) => {
+            const { brand, src } = item;
+            return (
+              <Link to="/shop" key={brand}>
+                <div
+                  className="card card-vrt"
+                  onClick={() => dispatch({ type: "BRAND", payload: brand })}
+                >
+                  <div className="card-img-container">
+                    <img className="card-img" src={src} alt="brands" />
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
       <Footer />

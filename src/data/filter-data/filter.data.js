@@ -5,6 +5,7 @@ export const filterBrandData = [
   "My Protein",
   "Max Protein",
   "Coca Cola",
+  "Divine"
 ];
 
 export const filterRatingData = [

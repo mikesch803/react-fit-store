@@ -182,5 +182,16 @@ export const products = [
     in_stock: true,
     categoryName: "clothing",
   },
+  {
+    _id: uuid(),
+    src:"https://cdn.shopify.com/s/files/1/0441/1896/6440/products/IMG-20210818-WA0010_1024x1024@2x.jpg?v=1629254217",
+    title: "Protein Powder",
+    brand: "Divine",
+    mrp: 1049,
+    offer_price:700,
+    rating:5,
+    in_stock: true,
+    categoryName: "food & drink",
+  },
   
 ];
