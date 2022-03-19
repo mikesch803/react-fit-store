@@ -52,35 +52,39 @@ export function Aside() {
         </div>
         <div className="aside-rating">
           <h3>Rating</h3>
-          {filterRatingData.map((item) => (
-            <label htmlFor={item.name} className="star" key={item.name}>
+          {filterRatingData.map((item) => { 
+            const {name, value} = item;
+            return (
+            <label htmlFor={name} className="star" key={name}>
               <input
                 type="radio"
-                id={item.name}
+                id={name}
                 name="rating"
-                checked={state.rating === item.value}
+                checked={state.rating === value}
                 onChange={() =>
-                  dispatch({ type: "RATING", payload: item.value })
+                  dispatch({ type: "RATING", payload: value })
                 }
               />
-              {item.name}
+              {name}
             </label>
-          ))}
+          )})}
         </div>
         <div className="aside-sort">
           <h3>Sort by Price</h3>
-          {filterPriceRangeData.map((item) => (
-            <label htmlFor={item.name} className="sort" key={item.name}>
+          {filterPriceRangeData.map((item) => { 
+            const {name, value} = item;
+            return(
+            <label htmlFor={name} className="sort" key={name}>
               <input
                 type="radio"
                 name="sorting"
-                id={item.name}
-                checked={state.sortby === item.value}
-                onChange={() => dispatch({ type: "SORT", payload: item.value })}
+                id={name}
+                checked={state.sortby === value}
+                onChange={() => dispatch({ type: "SORT", payload: value })}
               />
-              {item.name}
+              {name}
             </label>
-          ))}
+          )})}
         </div>
         <div className="aside-availablity">
           <h3>Availability</h3>

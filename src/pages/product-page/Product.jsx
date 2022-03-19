@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Aside, Header } from "../../components";
 import "./Product.css";
-import axios from "axios";
 import { FilterContext } from "../../context/filter-context";
 
 export function Product() {
-  
-  const {getSortedArr } = useContext(FilterContext);
+  const { getSortedArr } = useContext(FilterContext);
 
   return (
     <div className="grid-layout-product">
@@ -16,22 +14,19 @@ export function Product() {
         <h2 className="product-section-title txt-left">Showing all products</h2>
         <div className="product-component">
           <ul className="product-list">
-            {getSortedArr.map((item) => {
+            {getSortedArr.map(( item ) => {
+              const { src, title, brand, offer_price, mrp, _id } = item;
               return (
-                <li key={item._id}>
+                <li key={_id}>
                   <div className="card card-vrt">
                     <div className="card-img-container ">
-                      <img
-                        className="card-img"
-                        src={item.src}
-                        alt={item.title}
-                      />
+                      <img className="card-img" src={src} alt={title} />
                     </div>
                     <div className="card-desc txt-left">
-                      <h3>{item.title}</h3>
-                      <p>by {item.brand}</p>
-                      <span className="card-price">Rs {item.offer_price}</span>
-                      <del className="card-mrp">Rs {item.mrp}</del>
+                      <h3>{title}</h3>
+                      <p>by {brand}</p>
+                      <span className="card-price">Rs {offer_price}</span>
+                      <del className="card-mrp">Rs {mrp}</del>
                       <div className="card-btns ">
                         <button className="card-cart btn btn-primary ">
                           add to cart

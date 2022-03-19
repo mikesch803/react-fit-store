@@ -15,20 +15,8 @@ export const sortProducts = (productData, state) => {
     sortArr = sortArr.filter((item) => item.in_stock);
   }
 
-  if (state.rating && state.rating === 1) {
-    sortArr = sortArr.filter((item) => item.rating > 1);
-  }
-
-  if (state.rating && state.rating === 2) {
-    sortArr = sortArr.filter((item) => item.rating > 2);
-  }
-
-  if (state.rating && state.rating === 3) {
-    sortArr = sortArr.filter((item) => item.rating > 3);
-  }
-
-  if (state.rating && state.rating === 4) {
-    sortArr = sortArr.filter((item) => item.rating > 4);
+  if (state.rating) {
+    sortArr = sortArr.filter((item) => item.rating > state.rating);
   }
 
   if (state.brand.length !== 0 && state.brand) {

@@ -13,8 +13,6 @@ export const filterReducer = (state, action) => {
       return { ...state, rating: action.payload };
 
     case "BRAND":
-      console.log(action.payload);
-
       return state.brand.includes(action.payload)
         ? {
             ...state,
