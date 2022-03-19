@@ -1,189 +1,50 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Aside, Header } from "../../components";
 import "./Product.css";
-import { tracksuit } from "../../assests/images";
+import axios from "axios";
+import { FilterContext } from "../../context/filter-context";
 
 export function Product() {
+  
+  const {getSortedArr } = useContext(FilterContext);
+
   return (
     <div className="grid-layout-product">
       <Header />
       <Aside />
       <section className="product">
-        <h2 className="product-section-title">Showing all products</h2>
+        <h2 className="product-section-title txt-left">Showing all products</h2>
         <div className="product-component">
           <ul className="product-list">
-            <li>
-              <div className="card card-vrt">
-                <div className="card-img-container ">
-                  <img className="card-img" src={tracksuit} alt="track-suit" />
-                </div>
-                <div className="card-desc">
-                  <h3>Track suit</h3>
-                  <p>by H&M</p>
-                  <span className="card-price">Rs 499</span>
-                  <del className="card-mrp">Rs 999</del>
-                  <div className="card-btns ">
-                    <button className="card-cart btn btn-primary ">
-                      add to cart
-                    </button>
-                    <button className="card-wishlist btn btn-outline">
-                      wishlist
-                    </button>
+            {getSortedArr.map((item) => {
+              return (
+                <li key={item._id}>
+                  <div className="card card-vrt">
+                    <div className="card-img-container ">
+                      <img
+                        className="card-img"
+                        src={item.src}
+                        alt={item.title}
+                      />
+                    </div>
+                    <div className="card-desc txt-left">
+                      <h3>{item.title}</h3>
+                      <p>by {item.brand}</p>
+                      <span className="card-price">Rs {item.offer_price}</span>
+                      <del className="card-mrp">Rs {item.mrp}</del>
+                      <div className="card-btns ">
+                        <button className="card-cart btn btn-primary ">
+                          add to cart
+                        </button>
+                        <button className="card-wishlist btn btn-outline">
+                          wishlist
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="card card-vrt">
-                <div className="card-img-container ">
-                  <img className="card-img" src={tracksuit} alt="track-suit" />
-                </div>
-                <div className="card-desc">
-                  <h3>Track suit</h3>
-                  <p>by H&M</p>
-                  <span className="card-price">Rs 499</span>
-                  <del className="card-mrp">Rs 999</del>
-                  <div className="card-btns ">
-                    <button className="card-cart btn btn-primary ">
-                      add to cart
-                    </button>
-                    <button className="card-wishlist btn btn-outline">
-                      wishlist
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="card card-vrt">
-                <div className="card-img-container ">
-                  <img className="card-img" src={tracksuit} alt="track-suit" />
-                </div>
-                <div className="card-desc">
-                  <h3>Track suit</h3>
-                  <p>by H&M</p>
-                  <span className="card-price">Rs 499</span>
-                  <del className="card-mrp">Rs 999</del>
-                  <div className="card-btns ">
-                    <button className="card-cart btn btn-primary ">
-                      add to cart
-                    </button>
-                    <button className="card-wishlist btn btn-outline">
-                      wishlist
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div className="card card-vrt">
-                <div className="card-img-container ">
-                  <img className="card-img" src={tracksuit} alt="track-suit" />
-                </div>
-                <div className="card-desc">
-                  <h3>Track suit</h3>
-                  <p>by H&M</p>
-                  <span className="card-price">Rs 499</span>
-                  <del className="card-mrp">Rs 999</del>
-                  <div className="card-btns ">
-                    <button className="card-cart btn btn-primary ">
-                      add to cart
-                    </button>
-                    <button className="card-wishlist btn btn-outline">
-                      wishlist
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="card card-vrt">
-                <div className="card-img-container ">
-                  <img className="card-img" src={tracksuit} alt="track-suit" />
-                </div>
-                <div className="card-desc">
-                  <h3>Track suit</h3>
-                  <p>by H&M</p>
-                  <span className="card-price">Rs 499</span>
-                  <del className="card-mrp">Rs 999</del>
-                  <div className="card-btns ">
-                    <button className="card-cart btn btn-primary ">
-                      add to cart
-                    </button>
-                    <button className="card-wishlist btn btn-outline">
-                      wishlist
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="card card-vrt">
-                <div className="card-img-container ">
-                  <img className="card-img" src={tracksuit} alt="track-suit" />
-                </div>
-                <div className="card-desc">
-                  <h3>Track suit</h3>
-                  <p>by H&M</p>
-                  <span className="card-price">Rs 499</span>
-                  <del className="card-mrp">Rs 999</del>
-                  <div className="card-btns ">
-                    <button className="card-cart btn btn-primary ">
-                      add to cart
-                    </button>
-                    <button className="card-wishlist btn btn-outline">
-                      wishlist
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="card card-vrt">
-                <div className="card-img-container ">
-                  <img className="card-img" src={tracksuit} alt="track-suit" />
-                </div>
-                <div className="card-desc">
-                  <h3>Track suit</h3>
-                  <p>by H&M</p>
-                  <span className="card-price">Rs 499</span>
-                  <del className="card-mrp">Rs 999</del>
-                  <div className="card-btns ">
-                    <button className="card-cart btn btn-primary ">
-                      add to cart
-                    </button>
-                    <button className="card-wishlist btn btn-outline">
-                      wishlist
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </li>
-
-            <li>
-              <div className="card card-vrt">
-                <div className="card-img-container ">
-                  <img className="card-img" src={tracksuit} alt="track-suit" />
-                </div>
-                <div className="card-desc">
-                  <h3>Track suit</h3>
-                  <p>by H&M</p>
-                  <span className="card-price">Rs 499</span>
-                  <del className="card-mrp">Rs 999</del>
-                  <div className="card-btns ">
-                    <button className="card-cart btn btn-primary ">
-                      add to cart
-                    </button>
-                    <button className="card-wishlist btn btn-outline">
-                      wishlist
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </li>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </section>
