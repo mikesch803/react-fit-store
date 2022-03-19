@@ -4,7 +4,7 @@
   grid-template-areas:
     "header header header"
     "main-home main-home main-home"
-    "bottom-left bottom-mid bottom-right"
+    "bottom bottom bottom"
     "footer footer footer";
 }
 
@@ -26,9 +26,6 @@
 }
 
 .main-home,
-.section-bottom-left,
-.section-bottom-mid,
-.section-bottom-right,
 .footer-home p {
   display: flex;
   justify-content: center;
@@ -50,25 +47,19 @@
   font-size: 4rem;
 }
 
-.section-bottom-left {
-  grid-area: bottom-left;
+.section-home {
+  grid-area: bottom;
+  display: flex;
+  flex-direction: column;
   margin: 2rem;
-  flex-direction: column;
+  cursor: pointer;
 }
 
-.section-bottom-mid {
-  grid-area: bottom-mid;
-  flex-direction: column;
+.section-brands {
+  display: flex;
+  justify-content: space-around;
 }
 
-.section-bottom-right {
-  grid-area: bottom-right;
-  flex-direction: column;
-}
-
-.img-bottom-left,
-.img-bottom-mid,
-.img-bottom-right {
-  width: 85%;
-  object-fit: cover;
+.brand-heading {
+  margin: 2rem;
 }
