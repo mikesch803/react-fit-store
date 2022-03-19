@@ -29,8 +29,13 @@
   list-style-type: none;
 }
 
+.card {
+  border: 1px solid var(--COLOR-FT);
+}
+
 .card-img {
-  object-fit: contain;
+  padding: 0;
+  object-fit: cover;
 }
 
 .category,

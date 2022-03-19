@@ -1,38 +1,104 @@
-import React from 'react'
-import './Aside.css'
+import React, { useContext } from "react";
+import { FilterContext } from "../../context/filter-context";
+import {
+  filterBrandData,
+  filterPriceRangeData,
+  filterRatingData,
+} from "../../data/filter-data/filter.data";
+import "./Aside.css";
 export function Aside() {
+  const { dispatch, state } = useContext(FilterContext);
+
   return (
     <aside className="aside-product">
-            <div className="sidebar-product">
-                <div className="aside-filter">
-                    <h3>Filter </h3><span className="aside-filter-clear">clear</span>
-                </div>
-                <div className="aside-price-range">
-                    <h3>Price range</h3>
-                    <input type="range"/>
-                </div>
-                <div className="aside-category">
-                    <h3>Category</h3>
-                    <label for="" className="category"><input type="checkbox"/>Men clothing</label>
-                    <label for="" className="category"><input type="checkbox"/>Women clothing</label>
-                </div>
-                <div className="aside-rating">
-                    <h3>Rating</h3>
-                    <label for="four-star" className="star"><input type="radio" id="four-star" name="rating" value="4 star & above"/>4
-                        star & above</label>
-                    <label for="three-star" className="star"><input type="radio" id="three-star" name="rating" value="3 star & above"/>3
-                        star & above</label>
-                    <label for="two-star" className="star"><input type="radio" id="two-star" name="rating" value="2 star & above"/>2 star
-                        & above</label>
-                    <label for="one-star" className="star"><input type="radio" id="one-star" name="rating" value="1 star & above"/>1 star
-                        & above</label>
-                </div>
-                <div className="aside-sort">
-                    <h3>Sort by Price</h3>
-                    <label for="low-high" className="sort"><input type="radio" name="sorting" id="low-high"/>Price-low to high</label>
-                    <label for="high-low" className="sort"><input type="radio" name="sorting" id="high-low"/>Price-high to low</label>
-                </div>
-            </div>
-        </aside>
-  )
+      <form className="sidebar-product txt-left">
+        <div className="aside-filter">
+          <h3>Filter </h3>
+          <span
+            className="aside-filter-clear"
+            onClick={() => dispatch({ type: "CLEAR" })}
+          >
+            clear
+          </span>
+        </div>
+        <div className="aside-price-range">
+          <h3>Price range</h3>
+          <label>0</label>{" "}
+          <input
+            type="range"
+            min="0"
+            max="1501"
+            value={state.priceRange}
+            onChange={(e) =>
+              dispatch({ type: "PRICE_RANGE", payload: e.target.value })
+            }
+          />
+          <label> 1500</label>
+        </div>
+        <div className="aside-category">
+          <h3>Brand</h3>
+          {filterBrandData.map((item) => (
+            <label htmlFor={item} className="category" key={item}>
+              <input
+                id={item}
+                type="checkbox"
+                name={item}
+                checked={state.brand.includes(item)}
+                onChange={(e) => dispatch({ type: "BRAND", payload: item })}
+              />
+              {item}
+            </label>
+          ))}
+        </div>
+        <div className="aside-rating">
+          <h3>Rating</h3>
+          {filterRatingData.map((item) => { 
+            const {name, value} = item;
+            return (
+            <label htmlFor={name} className="star" key={name}>
+              <input
+                type="radio"
+                id={name}
+                name="rating"
+                checked={state.rating === value}
+                onChange={() =>
+                  dispatch({ type: "RATING", payload: value })
+                }
+              />
+              {name}
+            </label>
+          )})}
+        </div>
+        <div className="aside-sort">
+          <h3>Sort by Price</h3>
+          {filterPriceRangeData.map((item) => { 
+            const {name, value} = item;
+            return(
+            <label htmlFor={name} className="sort" key={name}>
+              <input
+                type="radio"
+                name="sorting"
+                id={name}
+                checked={state.sortby === value}
+                onChange={() => dispatch({ type: "SORT", payload: value })}
+              />
+              {name}
+            </label>
+          )})}
+        </div>
+        <div className="aside-availablity">
+          <h3>Availability</h3>
+          <label htmlFor="availablity">
+            <input
+              type="checkbox"
+              id="availablity"
+              checked={state.available}
+              onChange={() => dispatch({ type: "EXCLUDE_OUT_OF_STOCK" })}
+            />
+            exclude out of stock
+          </label>
+        </div>
+      </form>
+    </aside>
+  );
 }
