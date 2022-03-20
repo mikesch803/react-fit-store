@@ -39,3 +39,7 @@
 .card-mrp {
   font-size: 1rem;
 }
+
+.card-dismis-btn {
+  cursor: pointer;
+}
