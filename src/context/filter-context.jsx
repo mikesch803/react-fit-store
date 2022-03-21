@@ -1,6 +1,6 @@
 import { createContext, useEffect, useReducer, useState } from "react";
 import axios from "axios";
-import { filterReducer } from "../reducer/filter-reducer/FilterReducer";
+import { filterReducer } from "../reducer/cart-reducer/FilterReducer";
 import { sortProducts } from "../utils/filter-function/FilterProducts";
 const FilterContext = createContext();
 
@@ -16,7 +16,6 @@ const FilterProvider = ({ children }) => {
       }
     })();
   }, []);
-
 
   const [state, dispatch] = useReducer(filterReducer, {
     sortby: null,
