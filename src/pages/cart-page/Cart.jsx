@@ -1,45 +1,72 @@
-import React from "react";
-import { tracksuit } from "../../assests/images";
+import React, { useContext, useState } from "react";
 import { Header } from "../../components";
+import { WishlistContext } from "../../context";
+import { CartContext } from "../../context/cart-context";
 import "./Cart.css";
 
 export function Cart() {
+  const { state, dispatch } = useContext(CartContext);
+  const [qty, setQty] = useState(1);
+
+  const { wishlistDataHandler } = useContext(WishlistContext);
   return (
     <div className="grid-layout-cart">
       <Header />
       <section className="section-cart-left">
-        <h3>My cart (20)</h3>
+        <h3>My cart ({state.cartData.length})</h3>
         <ul className="cart-product-qty">
-          <li>
-            <div className="card card-hz">
-              <div className="card-img-container card-img-hz">
-                <img className="card-img" src={tracksuit} alt="track-suit" />
-              </div>
-              <div className="card-desc cart-desc">
-                <h3>Track suit</h3>
-                <p>by H&M</p>
-                <span className="card-price">
-                  Rs 499<del className="card-mrp">Rs 999</del>
-                </span>
+          {state.cartData.map((item) => {
+            const { src, title, brand, mrp, offer_price, _id, qty } = item;
+            return (
+              <li key={_id}>
+                <div className="card card-hz">
+                  <div className="card-img-container card-img-hz">
+                    <img className="card-img" src={src} alt={title} />
+                  </div>
 
-                <form action="">
-                  <label for="">
-                    Quantity
-                    <input type="number" className="product-qty" />
-                  </label>
-                </form>
-
-                <div className="card-btns card-btns-hz">
-                  <button className="card-cart btn btn-primary ">
-                    remove from cart
-                  </button>
-                  <button className="card-cart btn btn-outline ">
-                    move to wishlist
-                  </button>
+                  <div className="card-desc cart-desc txt-left">
+                    <h3>{title}</h3>
+                    <p>by {brand}</p>
+                    <span className="card-price">
+                      Rs {offer_price}
+                      <del className="card-mrp">Rs {mrp}</del>
+                    </span>
+                    <label htmlFor="qty">Quantity</label>
+                    <select
+                      name="quantity"
+                      id="qty"
+                      onChange={(e) => setQty(Number(e.target.value))}
+                      value={qty}
+                    >
+                      <option value={1}>1</option>
+                      <option value={2}>2</option>
+                      <option value={3}>3</option>
+                      <option value={4}>4</option>
+                    </select>
+                    <div className="card-btns card-btns-hz">
+                      <span
+                        className=" card-dismis-btn "
+                        onClick={() =>
+                          dispatch({ type: "REMOVE_FROM_CART", payload: item })
+                        }
+                      >
+                        &times;
+                      </span>
+                      <button
+                        className="card-cart btn btn-outline "
+                        onClick={() => {
+                          wishlistDataHandler(item);
+                          dispatch({ type: "REMOVE_FROM_CART", payload: item });
+                        }}
+                      >
+                        move to wishlist
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </li>
+              </li>
+            );
+          })}
         </ul>
       </section>
       <section className="section-cart-right">
@@ -47,18 +74,43 @@ export function Cart() {
           <h3>Price details</h3>
           <div className="card card-vrt card-txt">
             <p>
-              Price (2) <span>Rs 1999</span>
+              Price ({state.cartData.length}){" "}
+              <span>
+                Rs {state.cartData.reduce((acc, curr) => acc + curr.mrp, 0)}
+              </span>
             </p>
             <p>
-              Discount <span>Rs -1000</span>
+              Discount{" "}
+              <span>
+                Rs{" "}
+                {state.cartData.reduce((acc, curr) => acc + curr.mrp, 0) -
+                  state.cartData.reduce(
+                    (acc, curr) => acc + curr.offer_price,
+                    0
+                  )}
+              </span>
             </p>
             <p>
               Delivery charges <span>Rs 100</span>
             </p>
             <h3>
-              Total Amount <span>1099</span>
+              Total Amount{" "}
+              <span>
+                {state.cartData.reduce(
+                  (acc, curr) => acc + curr.offer_price,
+                  0
+                ) + 100}
+              </span>
             </h3>
-            <p>you will save Rs 1000 on this order</p>
+            <p>
+              you will save Rs{" "}
+              {state.cartData.reduce((acc, curr) => acc + curr.mrp, 0) -
+                state.cartData.reduce(
+                  (acc, curr) => acc + curr.offer_price,
+                  0
+                )}{" "}
+              on this order
+            </p>
             <div className="card-btns">
               <button className="card-cart btn btn-primary">place order</button>
             </div>

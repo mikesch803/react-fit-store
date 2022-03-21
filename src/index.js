@@ -6,14 +6,19 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { makeServer } from "./server";
 import { FilterProvider } from "./context/filter-context";
 import { WishlistProvider } from "./context/wishlist-context";
+import { CartProvider } from "./context/cart-context";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <FilterProvider>
-        <WishlistProvider>
-        <App />
-        </WishlistProvider>
+        
+          <CartProvider>
+          <WishlistProvider>
+            <App />
+            </WishlistProvider>
+          </CartProvider>
+        
       </FilterProvider>
     </Router>
   </React.StrictMode>,
