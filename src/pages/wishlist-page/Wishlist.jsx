@@ -10,18 +10,20 @@ export function Wishlist() {
       <Header />
       <section className="wishlist">
         <h2>My Wishlist</h2>
-        {wishlistData.map((item) => (
-          <div className="card card-hz card-dismis" key={item._id}>
+        {wishlistData.map((item) => {
+          const {_id,src,title,brand,offer_price,mrp,rating} = item;
+          return(
+          <div className="card card-hz card-dismis" key={_id}>
             <div className="card-img-container card-img-hz">
-              <img className="card-img" src={item.src} alt="track-suit" />
+              <img className="card-img" src={src} alt="track-suit" />
             </div>
             <div className="card-desc txt-left">
-              <h3>{item.title}</h3>
-              <p>{item.brand}</p>
-              <span className="card-price">Rs {item.offer_price}</span>
-              <del className="card-mrp">Rs {item.mrp}</del>
+              <h3>{title}</h3>
+              <p>{brand}</p>
+              <span className="card-price">Rs {offer_price}</span>
+              <del className="card-mrp">Rs {mrp}</del>
               <span className=" rating-num txt-left">
-                {item.rating}
+                {rating}
                 <RatingIcon />
               </span>
               <div className="card-btns card-btns-hz">
@@ -37,7 +39,7 @@ export function Wishlist() {
               &times;
             </span>
           </div>
-        ))}
+        )})}
       </section>
     </div>
   );
