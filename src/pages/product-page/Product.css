@@ -44,3 +44,15 @@
 .aside-filter-clear {
   cursor: pointer;
 }
+
+.card-dismis-btn {
+  font-size: 1.5rem;
+}
+
+.card-desc-title {
+  display: flex;
+}
+
+.rating-num {
+  margin-left: auto;
+}

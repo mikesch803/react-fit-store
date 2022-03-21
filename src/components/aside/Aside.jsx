@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { FilterContext } from "../../context/filter-context";
+import { FilterContext } from "../../context";
 import {
   filterBrandData,
   filterPriceRangeData,

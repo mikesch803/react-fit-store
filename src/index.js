@@ -5,12 +5,15 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { makeServer } from "./server";
 import { FilterProvider } from "./context/filter-context";
+import { WishlistProvider } from "./context/wishlist-context";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <FilterProvider>
+        <WishlistProvider>
         <App />
+        </WishlistProvider>
       </FilterProvider>
     </Router>
   </React.StrictMode>,
