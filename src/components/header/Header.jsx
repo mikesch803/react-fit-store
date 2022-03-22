@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { WishlistContext } from "../../context";
+import { CartContext, WishlistContext } from "../../context";
 import { CartIcon, SearchIcon, WishlistIcon } from "../../icons/icons";
 import "./Header.css";
 export function Header() {
   const { wishlistData } = useContext(WishlistContext);
+  const {state} = useContext(CartContext);
   return (
     <header className="header">
       <div className="navbar">
@@ -30,7 +31,7 @@ export function Header() {
 
           <Link to="/cart" className="bg btn btn-link navbar-cart">
             <CartIcon />
-            <span className="bg-num">0</span>
+            <span className="bg-num">{state.cartData.length}</span>
           </Link>
         </div>
       </div>

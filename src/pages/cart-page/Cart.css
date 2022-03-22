@@ -10,7 +10,6 @@
   grid-area: cart-left;
 }
 
-.section-cart-left h3,
 .section-cart-right h3 {
   margin: 1rem 0;
 }
@@ -25,7 +24,7 @@
 }
 
 .card-img {
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .total-qty {
@@ -58,7 +57,6 @@
 .cart-desc {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
 }
 
 .product-qty {
@@ -68,4 +66,8 @@
 
 .cart-product-qty {
   list-style-type: none;
+}
+
+.card-hz {
+  position: relative;
 }
