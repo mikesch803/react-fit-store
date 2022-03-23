@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import "./LandingPage.css";
 import { landingPoster } from "../../assests/images";
 import { brandLogoData } from "../../data/home-page-data/home.data";
-import { FilterContext } from "../../context/filter-context";
 import { Link } from "react-router-dom";
+import { FilterContext } from "../../context";
 
 export function LandingPage() {
   const { dispatch } = useContext(FilterContext);
