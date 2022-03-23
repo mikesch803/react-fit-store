@@ -1,15 +1,56 @@
+import axios from "axios";
 import { createContext, useState } from "react";
 
 const WishlistContext = createContext();
 
 const WishlistProvider = ({ children }) => {
+  
   const [wishlistData, setWishlistData] = useState([]);
 
-  const wishlistDataHandler = (item) => {
-    if (wishlistData.includes(item)) {
-      setWishlistData(wishlistData.filter((product) => product !== item));
+  const encodedToken = localStorage.getItem("token");
+
+  const wishlistDataHandler = async (product) => {
+    const itemIndex = wishlistData.findIndex(
+      (item) => item._id === product._id
+    );
+    if (itemIndex !== -1) {
+      try {
+        const response = await axios.delete(
+          `/api/user/wishlist/${product._id}`,
+          {
+            headers: {
+              authorization: encodedToken,
+            },
+          }
+        );
+        console.log("****** ", response);
+        if (response.status === 200) {
+          setWishlistData(response.data.wishlist);
+          console.log("****** ", response);
+        }
+      } catch (err) {
+        console.log(err);
+      }
     } else {
-      setWishlistData([...wishlistData, item]);
+      try {
+        const response = await axios.post(
+          "/api/user/wishlist",
+          {
+            product,
+          },
+          {
+            headers: {
+              authorization: encodedToken,
+            },
+          }
+        );
+        console.log(response);
+        if (response.status === 201) {
+          setWishlistData(response.data.wishlist);
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 

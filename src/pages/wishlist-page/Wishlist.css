@@ -27,7 +27,7 @@
 }
 
 .card-img {
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .card-price,
