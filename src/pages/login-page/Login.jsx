@@ -1,18 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import axios from "axios";
 import { LoginContext } from "../../context";
+import { PassWordShowIcon } from "../../icons/icons";
+import { AuthReducer } from "../../reducer/AuthReducer";
 
 export function Login() {
-  const [inputFields, setInputFields] = useState({});
-
+  // const [inputFields, setInputFields] = useState({});
+  const [state, dispatch] = useReducer(AuthReducer, {
+    field:{},
+    passwordType:"password",
+    showPasswordIcon:<PassWordShowIcon/>
+  });
   const { setLogin } = useContext(LoginContext);
 
   const loginUserHandler = async (e) => {
     e.preventDefault();
+    
+    if(state.field.email && state.field.password){
     try {
-      const response = await axios.post(`/api/auth/login`, inputFields);
+      const response = await axios.post(`/api/auth/login`, state.field);
       // const encodedToken = localStorage.getItem("token");
       localStorage.setItem("token", response.data.encodedToken);
       if (response.status === 200) {
@@ -22,6 +30,7 @@ export function Login() {
     } catch (error) {
       console.log(error);
     }
+  }
   };
 
   return (
@@ -34,20 +43,24 @@ export function Login() {
           placeholder="email"
           className="form-input"
           name="email"
-          onChange={(e) =>
-            setInputFields({ ...inputFields, [e.target.name]: e.target.value })
-          }
+          onChange={(e) => dispatch({ type: "ADD_FIELD", payload: e.target })}
+
+          // onChange={(e) =>
+          //   setInputFields({ ...inputFields, [e.target.name]: e.target.value })
+          // }
         />
         <input
           required
-          type="text"
+          type={state.passwordType}
           placeholder="password"
           className="form-input"
           name="password"
-          onChange={(e) =>
-            setInputFields({ ...inputFields, [e.target.name]: e.target.value })
-          }
-        />
+          onChange={(e) => dispatch({ type: "ADD_FIELD", payload: e.target })}
+
+          // onChange={(e) =>
+          //   setInputFields({ ...inputFields, [e.target.name]: e.target.value })
+          // }
+        /><span className="form-passwordeye-login" onClick={()=>dispatch({type:"CHANGE_TYPE"})}>{state.showPasswordIcon}</span>
         <div className="form-checkbox">
           <label>
             <input type="checkbox" /> Remember me

@@ -1,38 +1,18 @@
-import React, { useContext, useReducer, useState } from "react";
+import React, { useContext, useReducer } from "react";
 import { Link } from "react-router-dom";
 import "./Signup.css";
 import axios from "axios";
 import { LoginContext } from "../../context";
-import { PassWordNotShowIcon, PassWordShowIcon } from "../../icons/icons";
+import { AuthReducer } from "../../reducer/AuthReducer";
+import { PassWordShowIcon } from "../../icons/icons";
 export function Signup() {
 
-  function AuthReducer(state, action) {
-    switch (action.type) {
-
-      case "ADD_FIELD":
-      return {
-        ...state,
-        field: { ...state.field, [action.payload.name]: action.payload.value }
-      };
-
-      case "CHANGE_TYPE":
-        return state.passwordType === "text"? {...state, passwordType:"password", showPasswordIcon:<PassWordNotShowIcon/>}:{...state, passwordType:"text", showPasswordIcon:<PassWordShowIcon/>};
-
-      default:
-        return state;
-    }
-  }
-
+  
 const [state, dispatch] = useReducer(AuthReducer, {
-  errMsg:{email:"", password:""},
   field:{},
   passwordType:"password",
   showPasswordIcon:<PassWordShowIcon/>
 });
-
-console.log(state.field)
-
-  // const [inputFields, setInputFields] = useState({});
 
   const { setLogin } = useContext(LoginContext);
   const signupHandler = async (e) => {

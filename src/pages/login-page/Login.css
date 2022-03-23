@@ -14,6 +14,7 @@
   justify-content: center;
   background-color: var(--COLOR-FT);
   gap: 0.5rem;
+  position: relative;
 }
 
 .form-btn {
@@ -29,4 +30,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.form-passwordeye-login {
+  position: absolute;
+  top:11rem;
+  right: 2rem
 }
