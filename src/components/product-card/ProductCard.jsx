@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { HeartIcon, RatingIcon, WishlistIcon } from "../../icons/icons";
+import { HeartIcon, RatingIcon, WishlistOutlineIcon } from "../../icons/icons";
 import { FilterContext, WishlistContext } from "../../context";
 import { CartContext } from "../../context/cart-context";
 import { Link } from "react-router-dom";
@@ -7,6 +7,7 @@ export function ProductCard() {
   const { getSortedArr } = useContext(FilterContext);
   const { wishlistDataHandler, wishlistData } = useContext(WishlistContext);
   const { dispatch, state } = useContext(CartContext);
+  console.log("wishlistdata ", wishlistData);
   return (
     <div className="product-component">
       <ul className="product-list">
@@ -53,10 +54,12 @@ export function ProductCard() {
                   className="card-dismis-btn"
                   onClick={() => wishlistDataHandler(item)}
                 >
-                  {wishlistData.includes(item) ? (
+                  {wishlistData.findIndex(
+                    (element) => element._id === item._id
+                  ) !== -1 ? (
                     <HeartIcon />
                   ) : (
-                    <WishlistIcon />
+                    <WishlistOutlineIcon />
                   )}
                 </div>
               </div>

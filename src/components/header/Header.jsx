@@ -1,16 +1,20 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { CartContext, WishlistContext } from "../../context";
+import { CartContext, FilterContext, WishlistContext } from "../../context";
 import { CartIcon, SearchIcon, WishlistIcon } from "../../icons/icons";
 import "./Header.css";
 export function Header() {
   const { wishlistData } = useContext(WishlistContext);
-  const {state} = useContext(CartContext);
+  const { state } = useContext(CartContext);
+  const { dispatch } = useContext(FilterContext);
+
   return (
     <header className="header">
       <div className="navbar">
         <h1 className="navbar-title">
-          <Link to="/">Fit Store</Link>
+          <Link to="/" onClick={() => dispatch({ type: "CLEAR" })}>
+            Fit Store
+          </Link>
         </h1>
         <div className="navbar-search">
           <input type="text" placeholder="search..." className="navbar-input" />

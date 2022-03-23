@@ -1,17 +1,29 @@
-import React, { useContext, useState } from "react";
-import { Header } from "../../components";
+import axios from "axios";
+import React, { useContext, useEffect } from "react";
 import { WishlistContext } from "../../context";
 import { CartContext } from "../../context/cart-context";
 import "./Cart.css";
 
 export function Cart() {
   const { state, dispatch } = useContext(CartContext);
-  const [qty, setQty] = useState(1);
+  // const [qty, setQty] = useState(1);
+  // const encodedToken = localStorage.getItem("token");
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const result = await axios.get("/api/user/cart",  {headers: {
+  //         authorization: encodedToken,
+  //       },})
+  //       console.log(result)
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   })();
+  // }, [encodedToken]);
 
   const { wishlistDataHandler } = useContext(WishlistContext);
   return (
     <div className="grid-layout-cart">
-      <Header />
       <section className="section-cart-left">
         <h3>My cart ({state.cartData.length})</h3>
         <ul className="cart-product-qty">
@@ -35,7 +47,7 @@ export function Cart() {
                     <select
                       name="quantity"
                       id="qty"
-                      onChange={(e) => setQty(Number(e.target.value))}
+                      // onChange={(e) => setQty(Number(e.target.value))}
                       value={qty}
                     >
                       <option value={1}>1</option>
