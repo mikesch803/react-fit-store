@@ -1,6 +1,6 @@
 .grid-layout-product {
   display: grid;
-  height: 100vh;
+  min-height: 100vh;
   grid-template-columns: 1fr 2fr 2fr;
   grid-template-areas:
     "header header header"
