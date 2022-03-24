@@ -4,14 +4,14 @@ import "./Signup.css";
 import axios from "axios";
 import { LoginContext } from "../../context";
 import { AuthReducer } from "../../reducer/AuthReducer";
-import { PassWordShowIcon } from "../../icons/icons";
+import { PassWordNotShowIcon } from "../../icons/icons";
 export function Signup() {
 
   
 const [state, dispatch] = useReducer(AuthReducer, {
   field:{},
   passwordType:"password",
-  showPasswordIcon:<PassWordShowIcon/>
+  showPasswordIcon:<PassWordNotShowIcon/>
 });
 
   const { setLogin } = useContext(LoginContext);

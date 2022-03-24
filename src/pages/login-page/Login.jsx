@@ -1,17 +1,16 @@
-import React, { useContext, useReducer, useState } from "react";
+import React, { useContext, useReducer } from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import axios from "axios";
 import { LoginContext } from "../../context";
-import { PassWordShowIcon } from "../../icons/icons";
+import { PassWordNotShowIcon } from "../../icons/icons";
 import { AuthReducer } from "../../reducer/AuthReducer";
 
 export function Login() {
-  // const [inputFields, setInputFields] = useState({});
   const [state, dispatch] = useReducer(AuthReducer, {
     field:{},
     passwordType:"password",
-    showPasswordIcon:<PassWordShowIcon/>
+    showPasswordIcon:<PassWordNotShowIcon/>
   });
   const { setLogin } = useContext(LoginContext);
 
@@ -44,10 +43,6 @@ export function Login() {
           className="form-input"
           name="email"
           onChange={(e) => dispatch({ type: "ADD_FIELD", payload: e.target })}
-
-          // onChange={(e) =>
-          //   setInputFields({ ...inputFields, [e.target.name]: e.target.value })
-          // }
         />
         <input
           required
@@ -56,10 +51,6 @@ export function Login() {
           className="form-input"
           name="password"
           onChange={(e) => dispatch({ type: "ADD_FIELD", payload: e.target })}
-
-          // onChange={(e) =>
-          //   setInputFields({ ...inputFields, [e.target.name]: e.target.value })
-          // }
         /><span className="form-passwordeye-login" onClick={()=>dispatch({type:"CHANGE_TYPE"})}>{state.showPasswordIcon}</span>
         <div className="form-checkbox">
           <label>

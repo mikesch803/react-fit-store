@@ -4,7 +4,8 @@
   grid-template-areas:
     "header header header"
     "wishlist wishlist wishlist"
-    "wishlist wishlist wishlist";
+    "wishlist wishlist wishlist"
+    "footer footer footer";
 }
 
 .wishlist {
