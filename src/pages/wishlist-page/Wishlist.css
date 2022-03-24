@@ -1,10 +1,11 @@
 .grid-layout-wishlist {
   display: grid;
-  height: 100vh;
+  min-height: 100vh;
   grid-template-areas:
     "header header header"
     "wishlist wishlist wishlist"
-    "wishlist wishlist wishlist";
+    "wishlist wishlist wishlist"
+    "footer footer footer";
 }
 
 .wishlist {

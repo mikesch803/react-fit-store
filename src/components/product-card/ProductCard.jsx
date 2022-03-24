@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export function ProductCard() {
   const { getSortedArr } = useContext(FilterContext);
   const { wishlistDataHandler, wishlistData } = useContext(WishlistContext);
-  const { dispatch, state } = useContext(CartContext);
+  const { dispatch, state, addToCartHandler } = useContext(CartContext);
   return (
     <div className="product-component">
       <ul className="product-list">
@@ -30,7 +30,9 @@ export function ProductCard() {
                   <span className="card-price">Rs {offer_price}</span>
                   <del className="card-mrp">Rs {mrp}</del>
                   <div className="card-btns ">
-                    {state.cartData.includes(item) ? (
+                    {
+                    state.cartData.findIndex((element) => element._id === item._id) !== -1 
+                    ? (
                       <Link
                         to="/cart"
                         className="card-cart btn btn-primary txt-center"
@@ -41,7 +43,7 @@ export function ProductCard() {
                       <button
                         className="card-cart btn btn-primary "
                         onClick={() =>
-                          dispatch({ type: "ADD_TO_CART", payload: item })
+                          addToCartHandler(item)
                         }
                       >
                         add to cart

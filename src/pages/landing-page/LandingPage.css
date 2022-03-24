@@ -1,6 +1,7 @@
 .grid-layout-home {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  min-height: 100vh;
   grid-template-areas:
     "header header header"
     "main-home main-home main-home"
