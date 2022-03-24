@@ -7,7 +7,6 @@ export function ProductCard() {
   const { getSortedArr } = useContext(FilterContext);
   const { wishlistDataHandler, wishlistData } = useContext(WishlistContext);
   const { dispatch, state } = useContext(CartContext);
-  console.log("wishlistdata ", wishlistData);
   return (
     <div className="product-component">
       <ul className="product-list">

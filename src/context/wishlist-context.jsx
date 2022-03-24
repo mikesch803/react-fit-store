@@ -4,7 +4,6 @@ import { createContext, useState } from "react";
 const WishlistContext = createContext();
 
 const WishlistProvider = ({ children }) => {
-  
   const [wishlistData, setWishlistData] = useState([]);
 
   const encodedToken = localStorage.getItem("token");
@@ -23,10 +22,8 @@ const WishlistProvider = ({ children }) => {
             },
           }
         );
-        console.log("****** ", response);
         if (response.status === 200) {
           setWishlistData(response.data.wishlist);
-          console.log("****** ", response);
         }
       } catch (err) {
         console.log(err);
