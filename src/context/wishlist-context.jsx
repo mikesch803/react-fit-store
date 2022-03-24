@@ -41,7 +41,6 @@ const WishlistProvider = ({ children }) => {
             },
           }
         );
-        console.log(response);
         if (response.status === 201) {
           setWishlistData(response.data.wishlist);
         }
@@ -52,7 +51,9 @@ const WishlistProvider = ({ children }) => {
   };
 
   return (
-    <WishlistContext.Provider value={{ wishlistDataHandler, wishlistData }}>
+    <WishlistContext.Provider
+      value={{ wishlistDataHandler, wishlistData, setWishlistData }}
+    >
       {children}
     </WishlistContext.Provider>
   );

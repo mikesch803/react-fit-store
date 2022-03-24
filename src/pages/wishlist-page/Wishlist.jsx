@@ -6,23 +6,26 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 export function Wishlist() {
-  const { wishlistData, wishlistDataHandler } = useContext(WishlistContext);
+  const { wishlistData, wishlistDataHandler, setWishlistData } = useContext(WishlistContext);
   const { dispatch, state } = useContext(CartContext);
   const encodedToken = localStorage.getItem("token");
   useEffect(() => {
     (async () => {
       try {
-        const result = await axios.get("/api/user/wishlist", {
+        const response = await axios.get("/api/user/wishlist", {
           headers: {
             authorization: encodedToken,
           },
         });
-        console.log(result);
+        if(response === 200){
+        setWishlistData(response.data);
+        }
+
       } catch (err) {
         console.log(err);
       }
     })();
-  }, [encodedToken]);
+  }, [wishlistData, encodedToken, setWishlistData]);
 
   return (
     <div className="grid-layout-wishlist">
