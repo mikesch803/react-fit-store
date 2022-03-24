@@ -14,6 +14,8 @@
   justify-content: center;
   background-color: var(--COLOR-FT);
   gap: 0.5rem;
+  
+  position: relative;
 }
 
 .signup-checkbox {
@@ -34,4 +36,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.form-passwordeye {
+  position: absolute;
+  top:16rem;
+  right: 2rem;
 }

@@ -1,18 +1,31 @@
-import React, { useContext } from "react";
-import { Header } from "../../components";
+import React, { useContext, useEffect } from "react";
 import "./Wishlist.css";
 import { CartContext, WishlistContext } from "../../context";
 import { RatingIcon } from "../../icons/icons";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export function Wishlist() {
-
   const { wishlistData, wishlistDataHandler } = useContext(WishlistContext);
   const { dispatch, state } = useContext(CartContext);
+  const encodedToken = localStorage.getItem("token");
+  useEffect(() => {
+    (async () => {
+      try {
+        const result = await axios.get("/api/user/wishlist", {
+          headers: {
+            authorization: encodedToken,
+          },
+        });
+        console.log(result);
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, [encodedToken]);
 
   return (
     <div className="grid-layout-wishlist">
-      <Header />
       <section className="wishlist">
         <h2>My Wishlist</h2>
         {wishlistData.map((item) => {
@@ -33,9 +46,9 @@ export function Wishlist() {
                 </span>
                 <div className="card-btns ">
                   {state.cartData.includes(item) ? (
-                    <Link to="/cart"  className="card-cart btn btn-primary ">
+                    <Link to="/cart" className="card-cart btn btn-primary ">
                       go to cart
-                    </Link >
+                    </Link>
                   ) : (
                     <button
                       className="card-cart btn btn-primary "

@@ -1,17 +1,15 @@
 import React, { useContext } from "react";
 import "./LandingPage.css";
 import { landingPoster } from "../../assests/images";
-import { Footer, Header } from "../../components";
 import { brandLogoData } from "../../data/home-page-data/home.data";
-import { FilterContext } from "../../context/filter-context";
 import { Link } from "react-router-dom";
+import { FilterContext } from "../../context";
 
 export function LandingPage() {
   const { dispatch } = useContext(FilterContext);
 
   return (
     <div className="grid-layout-home">
-      <Header />
       <main className="main-home">
         <img src={landingPoster} alt="landing-poster" className="img-resp" />
         <div className="main-txt">
@@ -42,7 +40,6 @@ export function LandingPage() {
           })}
         </div>
       </section>
-      <Footer />
     </div>
   );
 }
