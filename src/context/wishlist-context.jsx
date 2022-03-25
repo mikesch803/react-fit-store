@@ -1,12 +1,14 @@
 import axios from "axios";
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
+import { ToastContext } from "./toast-context";
 
 const WishlistContext = createContext();
 
 const WishlistProvider = ({ children }) => {
   const [wishlistData, setWishlistData] = useState([]);
-
   const encodedToken = localStorage.getItem("token");
+  const {setToastMsg, setToastState } =
+    useContext(ToastContext);
 
   const wishlistDataHandler = async (product) => {
     const itemIndex = wishlistData.findIndex(
@@ -24,6 +26,11 @@ const WishlistProvider = ({ children }) => {
         );
         if (response.status === 200) {
           setWishlistData(response.data.wishlist);
+          setToastState(true);
+          setToastMsg("Product is removed from wishlist");
+          setTimeout(() => {
+            setToastState(false);
+          }, 1500);
         }
       } catch (err) {
         console.log(err);
@@ -43,6 +50,11 @@ const WishlistProvider = ({ children }) => {
         );
         if (response.status === 201) {
           setWishlistData(response.data.wishlist);
+          setToastState(true);
+          setToastMsg("Product is added to wishlist");
+          setTimeout(() => {
+            setToastState(false);
+          }, 1500);
         }
       } catch (err) {
         console.log(err);
@@ -52,7 +64,13 @@ const WishlistProvider = ({ children }) => {
 
   return (
     <WishlistContext.Provider
-      value={{ wishlistDataHandler, wishlistData, setWishlistData }}
+      value={{
+        wishlistDataHandler,
+        wishlistData,
+        setWishlistData,
+        // toastState,
+        // toastMsg,
+      }}
     >
       {children}
     </WishlistContext.Provider>
