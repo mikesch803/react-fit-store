@@ -4,10 +4,12 @@ import { CartContext, WishlistContext } from "../../context";
 import { RatingIcon } from "../../icons/icons";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { Toast } from "../../components/toast/Toast";
 
 export function Wishlist() {
-  const { wishlistData, wishlistDataHandler, setWishlistData } = useContext(WishlistContext);
-  const { dispatch, state } = useContext(CartContext);
+  const { wishlistData, wishlistDataHandler, setWishlistData, toastState } =
+    useContext(WishlistContext);
+  const { state, addToCartHandler } = useContext(CartContext);
   const encodedToken = localStorage.getItem("token");
   useEffect(() => {
     (async () => {
@@ -17,10 +19,9 @@ export function Wishlist() {
             authorization: encodedToken,
           },
         });
-        if(response === 200){
-        setWishlistData(response.data);
+        if (response === 200) {
+          setWishlistData(response.data);
         }
-
       } catch (err) {
         console.log(err);
       }
@@ -30,7 +31,9 @@ export function Wishlist() {
   return (
     <div className="grid-layout-wishlist">
       <section className="wishlist">
+        {toastState && <Toast />}
         <h2>My Wishlist</h2>
+
         {wishlistData.map((item) => {
           const { _id, src, title, brand, offer_price, mrp, rating } = item;
           return (
@@ -38,26 +41,30 @@ export function Wishlist() {
               <div className="card-img-container card-img-hz">
                 <img className="card-img" src={src} alt="track-suit" />
               </div>
-              <div className="card-desc txt-left">
+              <div className="card-desc txt-left flex" >
                 <h3>{title}</h3>
                 <p>{brand}</p>
+                <div>
                 <span className="card-price">Rs {offer_price}</span>
-                <del className="card-mrp">Rs {mrp}</del>
+                <del className="card-mrp">Rs {mrp}</del></div>
                 <span className=" rating-num txt-left">
                   {rating}
                   <RatingIcon />
                 </span>
                 <div className="card-btns ">
-                  {state.cartData.includes(item) ? (
-                    <Link to="/cart" className="card-cart btn btn-primary ">
+                  {state.cartData.findIndex(
+                    (element) => element._id === item._id
+                  ) !== -1 ? (
+                    <Link
+                      to="/cart"
+                      className="card-cart btn btn-primary txt-center"
+                    >
                       go to cart
                     </Link>
                   ) : (
                     <button
                       className="card-cart btn btn-primary "
-                      onClick={() =>
-                        dispatch({ type: "ADD_TO_CART", payload: item })
-                      }
+                      onClick={() => addToCartHandler(item)}
                     >
                       add to cart
                     </button>

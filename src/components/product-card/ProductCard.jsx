@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export function ProductCard() {
   const { getSortedArr } = useContext(FilterContext);
   const { wishlistDataHandler, wishlistData } = useContext(WishlistContext);
-  const { dispatch, state, addToCartHandler } = useContext(CartContext);
+  const { state, addToCartHandler } = useContext(CartContext);
   return (
     <div className="product-component">
       <ul className="product-list">
@@ -21,7 +21,7 @@ export function ProductCard() {
                 <div className="card-desc txt-left">
                   <h3 className="card-desc-title">
                     {title}
-                    <span className=" rating-num">
+                    <span className=" rating-num m-left">
                       {rating}
                       <RatingIcon />
                     </span>

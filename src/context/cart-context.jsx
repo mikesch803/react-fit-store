@@ -1,10 +1,14 @@
 import axios from "axios";
 import { createContext, useContext, useReducer } from "react";
 import { cartReducer } from "../reducer/CartReducer";
+import { ToastContext } from "./toast-context";
 
 const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
+
+  const { toastMsg, setToastMsg, toastState, setToastState } =
+    useContext(ToastContext);
   const encodedToken = localStorage.getItem("token");
 
   const addToCartHandler = async (item) => {
@@ -22,6 +26,11 @@ const CartProvider = ({ children }) => {
       );
       if (response.status === 201) {
         dispatch({ type: "SET_CART", payload: response.data.cart });
+        setToastState(true);
+        setToastMsg("Product is added to cart");
+        setTimeout(() => {
+          setToastState(false);
+        }, 1500);
       }
     } catch (err) {
       console.log(err);
@@ -37,6 +46,11 @@ const CartProvider = ({ children }) => {
       });
       if (response.status === 200) {
         dispatch({ type: "SET_CART", payload: response.data.cart });
+        setToastState(true);
+        setToastMsg("Product is removed from cart");
+        setTimeout(() => {
+          setToastState(false);
+        }, 1500);
       }
     } catch (err) {
       console.log(err);
@@ -60,6 +74,11 @@ const CartProvider = ({ children }) => {
       );
       if (response.status === 200) {
         dispatch({ type: "SET_QTY", payload: response.data.cart });
+        setToastState(true);
+        setToastMsg(`Quantity for ${item.title} is ${item.qty + 1}`);
+        setTimeout(() => {
+          setToastState(false);
+        }, 1500);
       }
     } catch (err) {
       console.log(err);
@@ -83,6 +102,11 @@ const CartProvider = ({ children }) => {
       );
       if (response.status === 200) {
         dispatch({ type: "SET_QTY", payload: response.data.cart });
+        setToastState(true);
+        setToastMsg(`Quantity for ${item.title} is ${item.qty - 1}`);
+        setTimeout(() => {
+          setToastState(false);
+        }, 1500);
       }
     } catch (err) {
       console.log(err);
@@ -103,6 +127,8 @@ const CartProvider = ({ children }) => {
         removeFromCartHandler,
         removeProductQtyHandler,
         addProductQtyHandler,
+        toastState,
+        toastMsg
       }}
     >
       {children}

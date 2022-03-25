@@ -3,13 +3,16 @@ import "./LandingPage.css";
 import { landingPoster } from "../../assests/images";
 import { brandLogoData } from "../../data/home-page-data/home.data";
 import { Link } from "react-router-dom";
-import { FilterContext } from "../../context";
+import { FilterContext, ToastContext } from "../../context";
+import { ToastSuccess } from "../../components/toast/Toast";
 
 export function LandingPage() {
   const { dispatch } = useContext(FilterContext);
-
+const {toastState} = useContext(ToastContext)
   return (
     <div className="grid-layout-home">
+      
+      {toastState && <ToastSuccess/>}
       <main className="main-home">
         <img src={landingPoster} alt="landing-poster" className="img-resp" />
         <div className="main-txt">

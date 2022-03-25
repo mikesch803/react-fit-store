@@ -5,8 +5,13 @@ import axios from "axios";
 import { LoginContext } from "../../context";
 import { PassWordNotShowIcon } from "../../icons/icons";
 import { AuthReducer } from "../../reducer/AuthReducer";
+import { ToastContext } from "../../context/toast-context";
+import { ToastSuccess } from "../../components/toast/Toast";
 
 export function Login() {
+  
+  const { setToastMsg, toastState, setToastState } =
+  useContext(ToastContext);
   const [state, dispatch] = useReducer(AuthReducer, {
     field:{},
     passwordType:"password",
@@ -24,6 +29,11 @@ export function Login() {
       localStorage.setItem("token", response.data.encodedToken);
       if (response.status === 200) {
         setLogin(true);
+        setToastState(true);
+        setToastMsg("Signin sucessfully");
+        setTimeout(() => {
+          setToastState(false);
+        }, 1500);
       }
       console.log(response);
     } catch (error) {
@@ -34,6 +44,7 @@ export function Login() {
 
   return (
     <div className="grid-layout-login">
+      {toastState && <ToastSuccess/>}
       <form className="form form-login" onSubmit={(e) => loginUserHandler(e)}>
         <h2 className="title-form">Login</h2>
         <input

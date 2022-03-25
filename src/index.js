@@ -5,10 +5,12 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { makeServer } from "./server";
 import { CartProvider, FilterProvider, LoginProvider, WishlistProvider } from "./context";
+import {  ToastProvider } from "./context/toast-context";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
+      <ToastProvider>
       <LoginProvider>
         <FilterProvider>
           <CartProvider>
@@ -18,6 +20,7 @@ ReactDOM.render(
           </CartProvider>
         </FilterProvider>
       </LoginProvider>
+      </ToastProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

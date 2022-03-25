@@ -5,8 +5,11 @@ import axios from "axios";
 import { LoginContext } from "../../context";
 import { AuthReducer } from "../../reducer/AuthReducer";
 import { PassWordNotShowIcon } from "../../icons/icons";
+import { ToastContext } from "../../context/toast-context";
+import { ToastSuccess } from "../../components/toast/Toast";
 export function Signup() {
-
+  const { setToastMsg, toastState, setToastState } =
+  useContext(ToastContext);
   
 const [state, dispatch] = useReducer(AuthReducer, {
   field:{},
@@ -22,6 +25,11 @@ const [state, dispatch] = useReducer(AuthReducer, {
       const response = await axios.post(`/api/auth/signup`, state.field);
       if (response.status === 201) {
         setLogin(true);
+        setToastState(true);
+        setToastMsg("Signin sucessfully");
+        setTimeout(() => {
+          setToastState(false);
+        }, 1500);
       }
       // saving the encodedToken in the localStorage
       localStorage.setItem("token", response.data.encodedToken);
@@ -33,6 +41,7 @@ const [state, dispatch] = useReducer(AuthReducer, {
 
   return (
     <div className="grid-layout-signup">
+      {toastState && <ToastSuccess/>}
       <form className="form form-signup" onSubmit={(e) => signupHandler(e)}>
         <h2 className="title-form">Signup</h2>
         <input

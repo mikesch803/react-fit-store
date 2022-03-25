@@ -1,15 +1,18 @@
 import axios from "axios";
 import React, { useContext, useEffect } from "react";
 import { CartPriceCard, CartProductCard } from "../../components";
-// import { CartPriceCard } from "../../components/cart-price-card/CartPriceCard";
-// import { CartProductCard } from "../../components/cart-product-card/CartProductCard";
-import { CartContext } from "../../context/cart-context";
+import { Toast } from "../../components/toast/Toast";
+import { CartContext, ToastContext } from "../../context";
 import "./Cart.css";
 
 export function Cart() {
   const {
     dispatch,
   } = useContext(CartContext);
+
+  const {
+  toastState
+  } = useContext(ToastContext)
 
   const encodedToken = localStorage.getItem("token");
   useEffect(() => {
@@ -32,6 +35,7 @@ export function Cart() {
 
   return (
     <div className="grid-layout-cart">
+      {toastState && <Toast/>}
       <CartProductCard />
       <CartPriceCard />
     </div>
