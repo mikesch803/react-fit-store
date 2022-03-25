@@ -67,9 +67,7 @@ const WishlistProvider = ({ children }) => {
       value={{
         wishlistDataHandler,
         wishlistData,
-        setWishlistData,
-        // toastState,
-        // toastMsg,
+        setWishlistData
       }}
     >
       {children}
