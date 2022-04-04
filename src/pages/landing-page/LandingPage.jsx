@@ -1,35 +1,44 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./LandingPage.css";
-import { landingPoster } from "../../assests/images";
-import { brandLogoData } from "../../data/home-page-data/home.data";
 import { Link } from "react-router-dom";
 import { FilterContext, ToastContext } from "../../context";
 import { ToastSuccess } from "../../components/toast/Toast";
+import axios from "axios";
 
 export function LandingPage() {
   const { dispatch } = useContext(FilterContext);
-const {toastState} = useContext(ToastContext)
+  const { toastState } = useContext(ToastContext);
+const [brands, setBrands] = useState([]);
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.get("/api/categories");
+        setBrands(response.data.categories);
+        dispatch({type:"CLEAR"})
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, []);
+
   return (
     <div className="grid-layout-home">
-      
-      {toastState && <ToastSuccess/>}
+      {toastState && <ToastSuccess />}
       <main className="main-home">
-        <img src={landingPoster} alt="landing-poster" className="img-resp" />
-        <div className="main-txt">
-          <h1 className="ft-w-400 txt-center">New in Sale</h1>
-          <h2 className="ft-w-300 ft-grey txt-center">
-            Upto to 50% in all brands
-          </h2>
-        </div>
+        <img
+          src="https://cdn.shopify.com/s/files/1/0512/8827/7146/files/Banner_1_1950x.png?v=1637743062"
+          alt="landing-poster"
+          className="img-resp"
+        />
       </main>
 
       <section className="section-home">
         <h2 className="txt-center brand-heading">Feature Brands</h2>
         <div className="section-brands">
-          {brandLogoData.map((item) => {
-            const { brand, src } = item;
+          {brands.map((item) => {
+            const { brand, src, _id } = item;
             return (
-              <Link to="/shop" key={brand}>
+              <Link to="/shop" key={_id}>
                 <div
                   className="card card-vrt"
                   onClick={() => dispatch({ type: "BRAND", payload: brand })}

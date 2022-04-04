@@ -11,15 +11,15 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <ToastProvider>
-      <LoginProvider>
         <FilterProvider>
           <CartProvider>
             <WishlistProvider>
+      <LoginProvider>
               <App />
+      </LoginProvider>
             </WishlistProvider>
           </CartProvider>
         </FilterProvider>
-      </LoginProvider>
       </ToastProvider>
     </Router>
   </React.StrictMode>,

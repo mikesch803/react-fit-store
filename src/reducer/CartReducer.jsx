@@ -11,6 +11,9 @@ export const cartReducer = (state, action) => {
         cartData: action.payload,
         addToCartToggle: !state.addToCartToggle,
       };
+
+    case "RESET":
+      return {...state, cartData:[]}
     default:
       return state;
   }

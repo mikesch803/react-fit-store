@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import { CartContext, WishlistContext } from "../../context";
 
 export function CartProductCard() {
-  const { wishlistDataHandler } = useContext(WishlistContext);
+  const { wishlistData, wishlistDataHandler} =
+    useContext(WishlistContext);
   const {
     state,
     removeFromCartHandler,
@@ -57,7 +58,7 @@ export function CartProductCard() {
                     >
                       &times;
                     </span>
-                    <button
+                    { !wishlistData.some(element => element._id === _id ) && <button
                       className="card-cart btn btn-outline "
                       onClick={() => {
                         wishlistDataHandler(item);
@@ -65,7 +66,7 @@ export function CartProductCard() {
                       }}
                     >
                       move to wishlist
-                    </button>
+                    </button> }
                   </div>
                 </div>
               </div>

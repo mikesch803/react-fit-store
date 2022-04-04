@@ -11,8 +11,7 @@
   grid-area: cart-left;
 }
 
-.section-cart-right h3,
-.section-cart-left h3 {
+.section-cart-right h3{
   margin: 1rem 0;
 }
 

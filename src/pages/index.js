@@ -4,3 +4,4 @@ export { Signup } from "./signup-page/Signup";
 export { Cart } from "./cart-page/Cart";
 export { Wishlist } from "./wishlist-page/Wishlist";
 export {Product } from './product-page/Product';
+export {NotFound} from './404/NotFound';

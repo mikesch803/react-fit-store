@@ -44,7 +44,6 @@ export function Login() {
 
   return (
     <div className="grid-layout-login">
-      {toastState && <ToastSuccess/>}
       <form className="form form-login" onSubmit={(e) => loginUserHandler(e)}>
         <h2 className="title-form">Login</h2>
         <input
@@ -55,14 +54,32 @@ export function Login() {
           name="email"
           onChange={(e) => dispatch({ type: "ADD_FIELD", payload: e.target })}
         />
-        <input
-          required
-          type={state.passwordType}
-          placeholder="password"
-          className="form-input"
-          name="password"
-          onChange={(e) => dispatch({ type: "ADD_FIELD", payload: e.target })}
-        /><span className="form-passwordeye-login" onClick={()=>dispatch({type:"CHANGE_TYPE"})}>{state.showPasswordIcon}</span>
+        {state.emailErrState && (
+          <small className="form-error">
+            email invalid
+          </small>
+        )}
+        <div className="parent-div">
+          <input
+            required
+            type={state.passwordType}
+            placeholder="password"
+            className="form-input flex-1"
+            name="password"
+            onChange={(e) => dispatch({ type: "ADD_FIELD", payload: e.target })}
+          />
+          <span
+            className="form-passwordeye"
+            onClick={() => dispatch({ type: "CHANGE_TYPE" })}
+          >
+            {state.showPasswordIcon}
+          </span>
+        </div>
+        {state.passwordErrState && (
+          <small className="form-error">
+            Password should be more than 8 character
+          </small>
+        )}
         <div className="form-checkbox">
           <label>
             <input type="checkbox" /> Remember me

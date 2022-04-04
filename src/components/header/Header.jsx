@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { CartContext, FilterContext, WishlistContext } from "../../context";
+import { CartContext, FilterContext, LoginContext, WishlistContext } from "../../context";
 import { CartIcon, SearchIcon, WishlistIcon } from "../../icons/icons";
 import "./Header.css";
 export function Header() {
-  const { wishlistData } = useContext(WishlistContext);
+  const { wishlistData, setWishlistData } = useContext(WishlistContext);
   const { state } = useContext(CartContext);
   const { dispatch } = useContext(FilterContext);
-
+  const {login, logoutHandler} = useContext(LoginContext)
   return (
     <header className="header">
       <div className="navbar">
@@ -21,21 +21,26 @@ export function Header() {
           <SearchIcon />
         </div>
         <div className="navbar-icons">
-          <Link to="/login" className="btn btn-link navbar-login">
+          {localStorage.token?  <button className="btn btn-link navbar-login" onClick={logoutHandler}>
+            logout
+          </button> : <Link to="/login" className="btn btn-link navbar-login">
             login
-          </Link>
+          </Link>} 
+          {/* <Link to="/login" className="btn btn-link navbar-login">
+            login
+          </Link> */}
           <Link to="/shop" className="btn btn-link navbar-shop">
             shop
           </Link>
 
           <Link to="/wishlist" className="bg btn btn-link navbar-wishlist">
             <WishlistIcon />
-            <span className="bg-num">{wishlistData.length}</span>
+            <span className="bg-num">{login && wishlistData.length}</span>
           </Link>
 
           <Link to="/cart" className="bg btn btn-link navbar-cart">
             <CartIcon />
-            <span className="bg-num">{state.cartData.length}</span>
+            <span className="bg-num">{login && state.cartData.length}</span>
           </Link>
         </div>
       </div>
