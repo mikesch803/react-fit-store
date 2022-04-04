@@ -17,7 +17,6 @@ const FilterProvider = ({ children }) => {
     })();
   }, []);
 
-
   const [state, dispatch] = useReducer(filterReducer, {
     sortby: null,
     available: false,

@@ -26,9 +26,6 @@ export function Header() {
           </button> : <Link to="/login" className="btn btn-link navbar-login">
             login
           </Link>} 
-          {/* <Link to="/login" className="btn btn-link navbar-login">
-            login
-          </Link> */}
           <Link to="/shop" className="btn btn-link navbar-shop">
             shop
           </Link>
