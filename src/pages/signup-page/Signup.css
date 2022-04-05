@@ -3,10 +3,7 @@
   min-height: 100vh;
   grid-template-areas:
     "header header header"
-    "... ... ..."
-    "... signup ..."
-    "... ... ..."
-    "footer footer footer";
+    "... signup ...";
 }
 
 .form-signup {
@@ -15,8 +12,8 @@
   justify-content: center;
   background-color: var(--COLOR-FT);
   gap: 0.5rem;
-  
-  position: relative;
+  height: fit-content;
+
 }
 
 .signup-checkbox {
@@ -40,7 +37,19 @@
 }
 
 .form-passwordeye {
-  position: absolute;
-  top:16rem;
-  right: 2rem;
+position: absolute;
+right: 10px;
+display: flex;
 }
+
+.parent-div {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+position: relative;
+}
+
+.flex-1 {
+    flex: 1;
+}
+

@@ -8,6 +8,16 @@ export const AuthReducer = (state, action) => {
         field: { ...state.field, [action.payload.name]: action.payload.value },
       };
 
+    case "EMAIL_ERR":
+      return state.field.email.indexOf('@') === -1 ? {
+        ...state, emailErrState:true
+      } : {...state, emailErrState : false }
+
+    case "PASSWORD_ERR":
+      return state.field.password.length < 8 ? {
+        ...state, passwordErrState:true
+      } : {...state, passwordErrState: false}
+
     case "CHANGE_TYPE":
       return state.passwordType === "text"
         ? {

@@ -9,13 +9,8 @@
     "footer footer footer";
 }
 
-.img-resp {
-  width: 85%;
-}
-
 .main-home {
   grid-area: main-home;
-  position: relative;
 }
 
 .main-txt {
@@ -26,7 +21,6 @@
   margin: 30rem;
 }
 
-.main-home,
 .footer-home p {
   display: flex;
   justify-content: center;

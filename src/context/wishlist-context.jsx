@@ -9,7 +9,7 @@ const WishlistProvider = ({ children }) => {
   const encodedToken = localStorage.getItem("token");
   const {setToastMsg, setToastState } =
     useContext(ToastContext);
-
+console.log('from context wishlist ' ,wishlistData)
   const wishlistDataHandler = async (product) => {
     const itemIndex = wishlistData.findIndex(
       (item) => item._id === product._id
@@ -27,6 +27,7 @@ const WishlistProvider = ({ children }) => {
         if (response.status === 200) {
           setWishlistData(response.data.wishlist);
           setToastState(true);
+          console.log(response.data.wishlist)
           setToastMsg("Product is removed from wishlist");
           setTimeout(() => {
             setToastState(false);

@@ -20,70 +20,139 @@ const [state, dispatch] = useReducer(AuthReducer, {
   const { setLogin } = useContext(LoginContext);
   const signupHandler = async (e) => {
     e.preventDefault();
-    if(state.field.name && state.field.email && state.field.password){
-    try {
-      const response = await axios.post(`/api/auth/signup`, state.field);
-      if (response.status === 201) {
-        setLogin(true);
-        setToastState(true);
-        setToastMsg("Signin sucessfully");
-        setTimeout(() => {
-          setToastState(false);
-        }, 1500);
+    if (
+      state.field.email.indexOf("@") >= 0 &&
+      state.field.password.length >= 8 &&
+      state.field.confirmPassword === state.field.password
+    ) {
+      try {
+        const response = await axios.post(`/api/auth/signup`, state.field);
+        if (response.status === 201) {
+          setLogin(true);
+          setToastState(true);
+          setToastMsg("Signin sucessfully");
+          setTimeout(() => {
+            setToastState(false);
+          }, 1500);
+        }
+               
+        localStorage.setItem("token", response.data.encodedToken);
+      } catch (error) {
+        console.log(error);
       }
-      // saving the encodedToken in the localStorage
-      localStorage.setItem("token", response.data.encodedToken);
-    } catch (error) {
-      console.log(error);
     }
-  }
+
+    if (state.field.email.indexOf("@") === -1) {
+      dispatch({ type: "EMAIL_ERR" });
+    } else {
+      dispatch({ type: "EMAIL_ERR" });
+    }
+
+    if (state.field.password.length < 8) {
+      dispatch({ type: "PASSWORD_ERR" });
+    } else {
+      dispatch({ type: "PASSWORD_ERR" });
+    }
+
+    if (state.field.password !== state.field.confirmPassword) {
+      dispatch({ type: "CONFIRM_PASSWORD_ERR" });
+    } else {
+      dispatch({ type: "CONFIRM_PASSWORD_ERR" });
+    }
   };
+
+  
 
   return (
     <div className="grid-layout-signup">
-      {toastState && <ToastSuccess/>}
-      <form className="form form-signup" onSubmit={(e) => signupHandler(e)}>
-        <h2 className="title-form">Signup</h2>
+    <form
+      className="form form-signup"
+      onSubmit={(e) => {
+        signupHandler(e);
+      }}
+    >
+      <h2 className="title-form">Signup</h2>
+      <div className="parent-div">
         <input
           type="text"
-          placeholder="name"
-          className="form-input"
-          name="name"
+          placeholder="first name"
+          className="form-input flex-1"
+          name="firstName"
           onChange={(e) => dispatch({ type: "ADD_FIELD", payload: e.target })}
           required
         />
-         <small className="form-error" style={{visibility:"hidden"}}>required</small>
         <input
           type="text"
-          placeholder="email"
-          className="form-input"
-          name="email"
+          placeholder="last name"
+          className="form-input flex-1"
+          name="lastName"
           onChange={(e) => dispatch({ type: "ADD_FIELD", payload: e.target })}
           required
         />
-         <small className="form-error">{}</small>
-          <input
+      </div>
+      <input
+        type="text"
+        placeholder="email"
+        className="form-input"
+        name="email"
+        onChange={(e) => dispatch({ type: "ADD_FIELD", payload: e.target })}
+        required
+      />
+      {state.emailErrState && (
+        <small className="form-error">invalid mail</small>
+      )}
+      <div className="parent-div">
+        <input
           type={state.passwordType}
           placeholder="password"
-          className="form-input"
+          className="form-input flex-1"
           name="password"
           onChange={(e) => dispatch({ type: "ADD_FIELD", payload: e.target })}
           required
-        /><span className="form-passwordeye" onClick={()=>dispatch({type:"CHANGE_TYPE"})}>{state.showPasswordIcon}</span>
-         <small className="form-error">{}</small>
-        <div className="form-checkbox signup-checkbox">
-          <label>
-            <input type="checkbox"  required/> I accepted all terms and
-            conditions
-          </label>
-        </div>
-        <button className="btn btn-primary form-btn" type="submit">
-          create new account
-        </button>
-        <Link to="/login" className="btn btn-link link-account">
-          Already have an account
-        </Link>
-      </form>
-    </div>
-  );
+        />
+        <span
+          className="form-passwordeye"
+          onClick={() => dispatch({ type: "CHANGE_TYPE" })}
+        >
+          {state.showPasswordIcon}
+        </span>
+      </div>
+      {state.passwordErrState && (
+        <small className="form-error">
+          Password should be more than 8 character
+        </small>
+      )}
+      <div className="parent-div">
+        <input
+          type={state.passwordType}
+          placeholder="confirm password"
+          className="form-input flex-1"
+          name="confirmPassword"
+          onChange={(e) => dispatch({ type: "ADD_FIELD", payload: e.target })}
+          required
+        />
+        <span
+          className="form-passwordeye"
+          onClick={() => dispatch({ type: "CHANGE_TYPE" })}
+        >
+          {state.showPasswordIcon}
+        </span>
+      </div>
+      {state.confirmPasswordErrState && (
+        <small className="form-error">Password did not matched</small>
+      )}
+      <div className="form-checkbox signup-checkbox">
+        <label>
+          <input type="checkbox" required /> I accepted all terms and
+          conditions
+        </label>
+      </div>
+      <button className="btn btn-primary form-btn" type="submit">
+        create new account
+      </button>
+      <Link to="/login" className="btn btn-link link-account">
+        Already have an account
+      </Link>
+    </form>
+  </div>  );
 }

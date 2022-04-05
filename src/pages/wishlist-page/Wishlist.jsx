@@ -1,14 +1,15 @@
 import React, { useContext, useEffect } from "react";
 import "./Wishlist.css";
-import { CartContext, WishlistContext } from "../../context";
+import { CartContext, ToastContext, WishlistContext } from "../../context";
 import { RatingIcon } from "../../icons/icons";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Toast } from "../../components/toast/Toast";
 
 export function Wishlist() {
-  const { wishlistData, wishlistDataHandler, setWishlistData, toastState } =
+  const { wishlistData, wishlistDataHandler, setWishlistData } =
     useContext(WishlistContext);
+  const {toastState} = useContext(ToastContext)
   const { state, addToCartHandler } = useContext(CartContext);
   const encodedToken = localStorage.getItem("token");
   useEffect(() => {
@@ -19,8 +20,9 @@ export function Wishlist() {
             authorization: encodedToken,
           },
         });
+        console.log("getting from wishlist ", response);
         if (response === 200) {
-          setWishlistData(response.data);
+          setWishlistData(response.data.wishlist);
         }
       } catch (err) {
         console.log(err);
@@ -30,8 +32,9 @@ export function Wishlist() {
 
   return (
     <div className="grid-layout-wishlist">
+              {toastState && <Toast />}
       <section className="wishlist">
-        {toastState && <Toast />}
+
         <h2>My Wishlist</h2>
 
         {wishlistData.map((item) => {
@@ -41,12 +44,13 @@ export function Wishlist() {
               <div className="card-img-container card-img-hz">
                 <img className="card-img" src={src} alt="track-suit" />
               </div>
-              <div className="card-desc txt-left flex" >
+              <div className="card-desc txt-left flex">
                 <h3>{title}</h3>
                 <p>{brand}</p>
                 <div>
-                <span className="card-price">Rs {offer_price}</span>
-                <del className="card-mrp">Rs {mrp}</del></div>
+                  <span className="card-price">Rs {offer_price}</span>
+                  <del className="card-mrp">Rs {mrp}</del>
+                </div>
                 <span className=" rating-num txt-left">
                   {rating}
                   <RatingIcon />
