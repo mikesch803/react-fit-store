@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
-import { CartContext, WishlistContext } from "../../context";
+import React from "react";
+import { useCart, useWishlist } from "../../context";
 
 export function CartProductCard() {
-  const { wishlistData, wishlistDataHandler} =
-    useContext(WishlistContext);
+  const { wishlistData, wishlistDataHandler } = useWishlist();
   const {
     state,
     removeFromCartHandler,
     addProductQtyHandler,
     removeProductQtyHandler,
-  } = useContext(CartContext);
+  } = useCart();
+
   return (
     <section className="section-cart-left">
       <h3 className="txt-left">My cart ({state.cartData.length})</h3>
@@ -58,15 +58,17 @@ export function CartProductCard() {
                     >
                       &times;
                     </span>
-                    { !wishlistData.some(element => element._id === _id ) && <button
-                      className="card-cart btn btn-outline "
-                      onClick={() => {
-                        wishlistDataHandler(item);
-                        removeFromCartHandler(item);
-                      }}
-                    >
-                      move to wishlist
-                    </button> }
+                    {!wishlistData.some((element) => element._id === _id) && (
+                      <button
+                        className="card-cart btn btn-outline "
+                        onClick={() => {
+                          wishlistDataHandler(item);
+                          removeFromCartHandler(item);
+                        }}
+                      >
+                        move to wishlist
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

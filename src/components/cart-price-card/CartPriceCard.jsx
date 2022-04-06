@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { CartContext } from "../../context";
+import React from "react";
+import { useCart } from "../../context";
 
 export function CartPriceCard() {
-  const { state } = useContext(CartContext);
+  const { state } = useCart()
   return (
     <section className="section-cart-right">
       <div className="cart-price-detail">

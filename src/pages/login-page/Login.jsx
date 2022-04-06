@@ -1,21 +1,19 @@
-import React, { useContext, useReducer } from "react";
+import React, { useReducer } from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import axios from "axios";
-import { LoginContext } from "../../context";
+import { useLogin, useToast } from "../../context";
 import { PassWordNotShowIcon } from "../../icons/icons";
 import { AuthReducer } from "../../reducer/AuthReducer";
-import { ToastContext } from "../../context/toast-context";
-import { ToastSuccess } from "../../components/toast/Toast";
 
 export function Login() {
-  const { setToastMsg, toastState, setToastState } = useContext(ToastContext);
+  const { setToastMsg, setToastState } = useToast();
   const [state, dispatch] = useReducer(AuthReducer, {
     field: {},
     passwordType: "password",
     showPasswordIcon: <PassWordNotShowIcon />,
   });
-  const { setLogin } = useContext(LoginContext);
+  const { setLogin, guestLoginHandler } = useLogin();
 
   const loginUserHandler = async (e) => {
     e.preventDefault();
@@ -33,7 +31,6 @@ export function Login() {
             setToastState(false);
           }, 1500);
         }
-        console.log(response);
       } catch (error) {
         console.log(error);
       }
@@ -86,6 +83,12 @@ export function Login() {
         </div>
         <button className="btn btn-primary form-btn" type="submit">
           login
+        </button>
+        <button
+          className="btn btn-outline form-btn"
+          onClick={(e) => guestLoginHandler(e)}
+        >
+          guest login
         </button>
         <Link to="/signup" className="btn btn-link link-account">
           create a new account

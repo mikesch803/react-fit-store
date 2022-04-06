@@ -5,10 +5,14 @@ import Mockman from "mockman-js";
 import { Footer, Header } from "./components";
 import { Auth } from "./pages/auth/Auth";
 import { NotAuth } from "./pages/auth/NotAuth";
+import { Toast } from "./components/toast/Toast";
+import { useToast } from "./context";
 function App() {
+  const {toastState} = useToast();
   return (
     <div className="App">
       <Header />
+      {toastState && <Toast/>}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/shop" element={<Product />} />

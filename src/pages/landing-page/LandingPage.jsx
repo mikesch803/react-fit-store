@@ -1,20 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./LandingPage.css";
 import { Link } from "react-router-dom";
-import { FilterContext, ToastContext } from "../../context";
-import { ToastSuccess } from "../../components/toast/Toast";
+import { useFilter } from "../../context";
 import axios from "axios";
 
 export function LandingPage() {
-  const { dispatch } = useContext(FilterContext);
-  const { toastState } = useContext(ToastContext);
-const [brands, setBrands] = useState([]);
+  const { dispatch } = useFilter();
+  const [brands, setBrands] = useState([]);
   useEffect(() => {
     (async () => {
       try {
         const response = await axios.get("/api/categories");
         setBrands(response.data.categories);
-        dispatch({type:"CLEAR"})
+        dispatch({ type: "CLEAR" });
       } catch (err) {
         console.error(err);
       }
@@ -23,7 +21,6 @@ const [brands, setBrands] = useState([]);
 
   return (
     <div className="grid-layout-home">
-      {toastState && <ToastSuccess />}
       <main className="main-home">
         <img
           src="https://cdn.shopify.com/s/files/1/0512/8827/7146/files/Banner_1_1950x.png?v=1637743062"

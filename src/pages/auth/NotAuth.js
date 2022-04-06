@@ -1,9 +1,9 @@
-import { useContext } from "react"
 import { Navigate, Outlet } from "react-router-dom"
-import { LoginContext } from "../../context"
+import { useLogin } from "../../context"
+
 
 export const NotAuth = () => {
-    const {login} = useContext(LoginContext)
+    const {login} = useLogin()
     console.log(login)
     return !login ? <Outlet/>:<Navigate to='/'/>
 }

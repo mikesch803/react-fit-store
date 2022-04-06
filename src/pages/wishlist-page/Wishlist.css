@@ -13,9 +13,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 4px;
-  padding: 1rem;
+  padding: 1rem; 
+  align-items: center;
+}
+
+.wishlist > h2 {
+  margin: 1rem;
+}
+
+.wishlist-container > li {
+  margin: 1rem;
 }
 
 .card-dismis-btn {

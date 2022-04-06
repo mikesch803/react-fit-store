@@ -6,8 +6,7 @@ import { ToastContext } from "./toast-context";
 const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-
-  const { toastMsg, setToastMsg, toastState, setToastState } =
+  const { toastMsg, setToastMsg, toastState, setToastState, setToastStyles } =
     useContext(ToastContext);
   const encodedToken = localStorage.getItem("token");
 
@@ -28,6 +27,7 @@ const CartProvider = ({ children }) => {
         dispatch({ type: "SET_CART", payload: response.data.cart });
         setToastState(true);
         setToastMsg("Product is added to cart");
+        setToastStyles("alert alert-success")
         setTimeout(() => {
           setToastState(false);
         }, 1500);
@@ -48,6 +48,7 @@ const CartProvider = ({ children }) => {
         dispatch({ type: "SET_CART", payload: response.data.cart });
         setToastState(true);
         setToastMsg("Product is removed from cart");
+        setToastStyles("alert alert-danger")
         setTimeout(() => {
           setToastState(false);
         }, 1500);
@@ -76,6 +77,7 @@ const CartProvider = ({ children }) => {
         dispatch({ type: "SET_QTY", payload: response.data.cart });
         setToastState(true);
         setToastMsg(`Quantity for ${item.title} is ${item.qty + 1}`);
+        setToastStyles("alert alert-success")
         setTimeout(() => {
           setToastState(false);
         }, 1500);
@@ -104,6 +106,7 @@ const CartProvider = ({ children }) => {
         dispatch({ type: "SET_QTY", payload: response.data.cart });
         setToastState(true);
         setToastMsg(`Quantity for ${item.title} is ${item.qty - 1}`);
+        setToastStyles("alert alert-danger")
         setTimeout(() => {
           setToastState(false);
         }, 1500);
@@ -115,7 +118,7 @@ const CartProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(cartReducer, {
     addToCartToggle: false,
-    cartData: []
+    cartData: [],
   });
 
   return (
@@ -128,7 +131,7 @@ const CartProvider = ({ children }) => {
         removeProductQtyHandler,
         addProductQtyHandler,
         toastState,
-        toastMsg
+        toastMsg,
       }}
     >
       {children}

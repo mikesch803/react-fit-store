@@ -2,13 +2,13 @@ import axios from "axios";
 import React, { useContext, useEffect } from "react";
 import { CartPriceCard, CartProductCard } from "../../components";
 import { Toast } from "../../components/toast/Toast";
-import { CartContext, ToastContext } from "../../context";
+import { useCart, ToastContext } from "../../context";
 import "./Cart.css";
 
 export function Cart() {
   const {
     dispatch,
-  } = useContext(CartContext);
+  } = useCart()
 
   const {
   toastState

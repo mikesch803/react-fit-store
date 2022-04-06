@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { HeartIcon, RatingIcon, WishlistOutlineIcon } from "../../icons/icons";
-import { FilterContext, WishlistContext } from "../../context";
-import { CartContext } from "../../context/cart-context";
 import { Link } from "react-router-dom";
+import { useCart, useFilter, useWishlist } from "../../context";
 export function ProductCard() {
-  const { getSortedArr } = useContext(FilterContext);
-  const { wishlistDataHandler, wishlistData } = useContext(WishlistContext);
-  const { state, addToCartHandler } = useContext(CartContext);
+  const { getSortedArr } = useFilter();
+  const { wishlistDataHandler, wishlistData } = useWishlist();
+  const { state, addToCartHandler } = useCart()
   return (
     <div className="product-component">
       <ul className="product-list">
