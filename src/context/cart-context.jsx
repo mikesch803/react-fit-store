@@ -33,7 +33,6 @@ const CartProvider = ({ children }) => {
         }, 1500);
       }
     } catch (err) {
-      console.log(err);
       if (err.response.status === 500) {
         setToastState(true);
         setToastMsg("Login first");
