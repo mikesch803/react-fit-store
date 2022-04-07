@@ -1,5 +1,6 @@
 import React from "react";
 import { useCart, useWishlist } from "../../context";
+import { checkInWishlist } from "../../utils/functions";
 
 export function CartProductCard() {
   const { wishlistData, wishlistDataHandler } = useWishlist();
@@ -12,7 +13,7 @@ export function CartProductCard() {
 
   return (
     <section className="section-cart-left">
-      <h3 className="txt-left">My cart ({state.cartData.length})</h3>
+      <h3 className="txt-left cart-left-title">My cart ({state.cartData.length})</h3>
       <ul className="cart-product-qty">
         {state.cartData.map((item) => {
           const { src, title, brand, mrp, offer_price, _id, qty } = item;
@@ -58,7 +59,8 @@ export function CartProductCard() {
                     >
                       &times;
                     </span>
-                    {!wishlistData.some((element) => element._id === _id) && (
+                    {checkInWishlist(wishlistData, item)
+                     && (
                       <button
                         className="card-cart btn btn-outline "
                         onClick={() => {

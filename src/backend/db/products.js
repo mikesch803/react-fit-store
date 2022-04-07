@@ -134,7 +134,7 @@ export const products = [
     mrp: 1000,
     offer_price:799,
     rating:3.5,
-    in_stock: false
+    in_stock: true
   },
   {
     _id: uuid(),

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useContext, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "./cart-context";
 import { useToast } from "./toast-context";
 import { useWishlist } from "./wishlist-context";
@@ -11,6 +12,8 @@ const LoginProvider = ({ children }) => {
   const { dispatch } = useCart();
   const { setToastMsg, setToastState, setToastStyles } = useToast();
   const [login, setLogin] = useState(localStorage?.token ? true : false);
+  const location = useLocation();
+  const navigate = useNavigate();
   const logoutHandler = () => {
     localStorage.clear();
     setLogin(false);
@@ -36,6 +39,7 @@ const LoginProvider = ({ children }) => {
       if (response.status === 200) {
         localStorage.setItem("token", response.data.encodedToken);
         setLogin(true);
+        navigate(location?.state?.from?.pathname || '/');
         setToastState(true);
         setToastMsg("Signin sucessfully");
         setToastStyles("alert alert-success");

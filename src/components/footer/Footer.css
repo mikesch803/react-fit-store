@@ -16,3 +16,15 @@
 .footer-icon {
   margin: 0.5rem;
 }
+
+.footer-p  {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.footer-p > span {
+  margin: 0 0.5rem;
+  display: flex;
+  align-items: center;
+}

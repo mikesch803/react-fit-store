@@ -2,13 +2,15 @@
   display: grid;
   min-height: 100vh;
   grid-template-areas:
-    "header header header header"
-    "... cart-left  cart-right ..."
-    "footer footer footer footer";
+    "... cart-left  cart-right ...";
 }
 
 .section-cart-left {
   grid-area: cart-left;
+}
+
+.cart-left-title{
+  margin: 1rem 0;
 }
 
 .section-cart-right h3{
@@ -82,4 +84,8 @@
 .qty-container {
   display: flex;
   justify-content: space-around;
+}
+ 
+.cart-product-qty > li {
+  margin: 0.5rem;
 }

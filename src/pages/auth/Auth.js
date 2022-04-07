@@ -1,8 +1,8 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useLogin } from "../../context";
 
 export const Auth = () => {
   const { login } = useLogin();
-  console.log(login);
-  return login ? <Outlet /> : <Navigate to="/login" />;
+  let location = useLocation()
+  return login ? <Outlet /> : <Navigate to="/login" state={{from:location}} replace />;
 };

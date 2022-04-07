@@ -34,6 +34,15 @@ const CartProvider = ({ children }) => {
       }
     } catch (err) {
       console.log(err);
+      if (err.response.status === 500) {
+        setToastState(true);
+        setToastMsg("Login first");
+        setToastStyles("alert alert-warning")
+        setTimeout(() => {
+          setToastState(false);
+        }, 1500);
+      }
+
     }
   };
 

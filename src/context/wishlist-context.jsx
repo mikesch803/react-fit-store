@@ -27,7 +27,6 @@ const WishlistProvider = ({ children }) => {
         if (response.status === 200) {
           setWishlistData(response.data.wishlist);
           setToastState(true);
-          console.log(response.data.wishlist);
           setToastMsg("Product is removed from wishlist");
           setToastStyles("alert alert-danger");
           setTimeout(() => {
@@ -60,7 +59,14 @@ const WishlistProvider = ({ children }) => {
           }, 1500);
         }
       } catch (err) {
-        console.log(err);
+        if (err.response.status === 500) {
+          setToastState(true);
+          setToastMsg("Login first");
+          setToastStyles("alert alert-warning");
+          setTimeout(() => {
+            setToastState(false);
+          }, 1500);
+        }
       }
     }
   };

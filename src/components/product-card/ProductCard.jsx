@@ -2,10 +2,12 @@ import React from "react";
 import { HeartIcon, RatingIcon, WishlistOutlineIcon } from "../../icons/icons";
 import { Link } from "react-router-dom";
 import { useCart, useFilter, useWishlist } from "../../context";
+import { checkInCart, checkInWishlist } from "../../utils/functions";
+
 export function ProductCard() {
   const { getSortedArr } = useFilter();
   const { wishlistDataHandler, wishlistData } = useWishlist();
-  const { state, addToCartHandler } = useCart()
+  const { state, addToCartHandler } = useCart();
   return (
     <div className="product-component">
       <ul className="product-list">
@@ -29,9 +31,7 @@ export function ProductCard() {
                   <span className="card-price">Rs {offer_price}</span>
                   <del className="card-mrp">Rs {mrp}</del>
                   <div className="card-btns ">
-                    {
-                    state.cartData.findIndex((element) => element._id === item._id) !== -1 
-                    ? (
+                    {checkInCart(state.cartData, item) ? (
                       <Link
                         to="/cart"
                         className="card-cart btn btn-primary txt-center"
@@ -41,9 +41,7 @@ export function ProductCard() {
                     ) : (
                       <button
                         className="card-cart btn btn-primary "
-                        onClick={() =>
-                          addToCartHandler(item)
-                        }
+                        onClick={() => addToCartHandler(item)}
                       >
                         add to cart
                       </button>
@@ -54,9 +52,8 @@ export function ProductCard() {
                   className="card-dismis-btn"
                   onClick={() => wishlistDataHandler(item)}
                 >
-                  {wishlistData.findIndex(
-                    (element) => element._id === item._id
-                  ) !== -1 ? (
+                  {checkInWishlist(wishlistData, item)
+                  ? (
                     <HeartIcon />
                   ) : (
                     <WishlistOutlineIcon />

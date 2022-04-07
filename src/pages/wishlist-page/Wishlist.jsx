@@ -4,6 +4,7 @@ import { useCart, useWishlist } from "../../context";
 import { RatingIcon } from "../../icons/icons";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { checkInCart } from "../../utils/functions/checkInCart";
 
 export function Wishlist() {
   const { wishlistData, wishlistDataHandler, setWishlistData } = useWishlist();
@@ -18,9 +19,8 @@ export function Wishlist() {
             authorization: encodedToken,
           },
         });
-        console.log("getting from wishlist ", response);
+
         if (response.status === 200) {
-          console.log(response);
           setWishlistData(response.data.wishlist);
         }
       } catch (err) {
@@ -32,7 +32,7 @@ export function Wishlist() {
   return (
     <div className="grid-layout-wishlist">
       <main className="wishlist">
-        <h2>My Wishlist</h2>
+        <h2 className="txt-center">My Wishlist</h2>
         <ul className="wishlist-container">
           {wishlistData.map((item) => {
             const { _id, src, title, brand, offer_price, mrp, rating } = item;
@@ -54,9 +54,7 @@ export function Wishlist() {
                       <RatingIcon />
                     </span>
                     <div className="card-btns ">
-                      {state.cartData.findIndex(
-                        (element) => element._id === item._id
-                      ) !== -1 ? (
+                      {checkInCart(state.cartData, item) ? (
                         <Link
                           to="/cart"
                           className="card-cart btn btn-primary txt-center"
