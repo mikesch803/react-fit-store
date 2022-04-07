@@ -1,0 +1,1 @@
+export const allProductTotalOfferPrice = products => products.reduce((acc, curr) => acc + curr.offer_price*curr.qty, 0);
