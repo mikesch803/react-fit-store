@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      {toastState && <Toast />}
+      {toastState && <Toast /> }
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/shop" element={<Product />} />
