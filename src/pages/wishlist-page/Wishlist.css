@@ -2,20 +2,27 @@
   display: grid;
   min-height: 100vh;
   grid-template-areas:
-    "header header header"
     "wishlist wishlist wishlist"
-    "wishlist wishlist wishlist"
-    "footer footer footer";
+    "wishlist wishlist wishlist";
 }
 
 .wishlist {
   grid-area: wishlist;
+}
+
+.wishlist-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: 4px;
-  padding: 1rem;
+  align-items: center;
+}
+
+.wishlist > h2 {
+  margin: 1rem;
+}
+
+.wishlist-container > li {
+  margin: 0.5rem;
 }
 
 .card-dismis-btn {

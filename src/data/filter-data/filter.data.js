@@ -1,10 +1,6 @@
 export const filterBrandData = [
-  "HRX",
-  "Nike",
-  "Decathalon",
   "My Protein",
   "Max Protein",
-  "Coca Cola",
   "Divine"
 ];
 

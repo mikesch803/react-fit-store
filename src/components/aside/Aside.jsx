@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { FilterContext } from "../../context";
+import React from "react";
+import { useFilter } from "../../context";
 import {
   filterBrandData,
   filterPriceRangeData,
@@ -7,7 +7,7 @@ import {
 } from "../../data/filter-data/filter.data";
 import "./Aside.css";
 export function Aside() {
-  const { dispatch, state } = useContext(FilterContext);
+  const { dispatch, state } = useFilter();
 
   return (
     <aside className="aside-product">

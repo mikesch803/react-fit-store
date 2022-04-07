@@ -1,9 +1,8 @@
-import { useContext } from "react"
-import { Navigate, Outlet } from "react-router-dom"
-import { LoginContext } from "../../context"
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { useLogin } from "../../context";
 
 export const Auth = () => {
-    const {login} = useContext(LoginContext)
-    console.log(login)
-    return login ? <Outlet/> : <Navigate to='/login'/>
-}
+  const { login } = useLogin();
+  let location = useLocation()
+  return login ? <Outlet /> : <Navigate to="/login" state={{from:location}} replace />;
+};

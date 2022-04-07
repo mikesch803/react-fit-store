@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { CartContext, FilterContext, LoginContext, WishlistContext } from "../../context";
+import { useCart, useFilter, useLogin, useWishlist } from "../../context";
 import { CartIcon, SearchIcon, WishlistIcon } from "../../icons/icons";
 import "./Header.css";
 export function Header() {
-  const { wishlistData, setWishlistData } = useContext(WishlistContext);
-  const { state } = useContext(CartContext);
-  const { dispatch } = useContext(FilterContext);
-  const {login, logoutHandler} = useContext(LoginContext)
+  const { wishlistData } = useWishlist();
+  const { state } = useCart()
+  const { dispatch } = useFilter();
+  const {login, logoutHandler} = useLogin()
   return (
     <header className="header">
       <div className="navbar">

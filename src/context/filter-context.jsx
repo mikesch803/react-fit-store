@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer, useState } from "react";
+import { createContext, useContext, useEffect, useReducer, useState } from "react";
 import axios from "axios";
 import { filterReducer } from "../reducer/FilterReducer";
 import { sortProducts } from "../utils/filter-function/FilterProducts";
@@ -33,4 +33,6 @@ const FilterProvider = ({ children }) => {
   );
 };
 
-export { FilterContext, FilterProvider };
+const useFilter = () => useContext(FilterContext);
+
+export { FilterContext, FilterProvider, useFilter };

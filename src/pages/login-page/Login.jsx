@@ -1,22 +1,21 @@
-import React, { useContext, useReducer } from "react";
-import { Link } from "react-router-dom";
+import React, { useReducer } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Login.css";
 import axios from "axios";
-import { LoginContext } from "../../context";
+import { useLogin, useToast } from "../../context";
 import { PassWordNotShowIcon } from "../../icons/icons";
 import { AuthReducer } from "../../reducer/AuthReducer";
-import { ToastContext } from "../../context/toast-context";
-import { ToastSuccess } from "../../components/toast/Toast";
 
 export function Login() {
-  const { setToastMsg, toastState, setToastState } = useContext(ToastContext);
+  const { setToastMsg, setToastState, setToastStyles } = useToast();
   const [state, dispatch] = useReducer(AuthReducer, {
     field: {},
     passwordType: "password",
     showPasswordIcon: <PassWordNotShowIcon />,
   });
-  const { setLogin } = useContext(LoginContext);
-
+  const { setLogin, guestLoginHandler } = useLogin();
+  const location = useLocation();
+  const navigate = useNavigate();
   const loginUserHandler = async (e) => {
     e.preventDefault();
 
@@ -27,15 +26,23 @@ export function Login() {
         if (response.status === 200) {
           localStorage.setItem("token", response.data.encodedToken);
           setLogin(true);
+          navigate(location?.state?.from?.pathname || "/");
           setToastState(true);
+          setToastStyles("alert alert-success");
           setToastMsg("Signin sucessfully");
           setTimeout(() => {
             setToastState(false);
           }, 1500);
         }
-        console.log(response);
       } catch (error) {
-        console.log(error);
+        if (error.response.status === 404) {
+          setToastState(true);
+          setToastMsg("Please sign up first");
+          setToastStyles("alert alert-warning");
+          setTimeout(() => {
+            setToastState(false);
+          }, 1500);
+        }
       }
     }
   };
@@ -86,6 +93,12 @@ export function Login() {
         </div>
         <button className="btn btn-primary form-btn" type="submit">
           login
+        </button>
+        <button
+          className="btn btn-outline form-btn"
+          onClick={(e) => guestLoginHandler(e)}
+        >
+          guest login
         </button>
         <Link to="/signup" className="btn btn-link link-account">
           create a new account

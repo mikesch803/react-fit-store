@@ -6,11 +6,11 @@ const WishlistContext = createContext();
 
 const WishlistProvider = ({ children }) => {
   const [wishlistData, setWishlistData] = useState([]);
-  const encodedToken = localStorage.getItem("token");
-  const {setToastMsg, setToastState } =
+
+  const { setToastMsg, setToastState, setToastStyles } =
     useContext(ToastContext);
-console.log('from context wishlist ' ,wishlistData)
   const wishlistDataHandler = async (product) => {
+    const encodedToken = localStorage.getItem("token");
     const itemIndex = wishlistData.findIndex(
       (item) => item._id === product._id
     );
@@ -27,8 +27,8 @@ console.log('from context wishlist ' ,wishlistData)
         if (response.status === 200) {
           setWishlistData(response.data.wishlist);
           setToastState(true);
-          console.log(response.data.wishlist)
           setToastMsg("Product is removed from wishlist");
+          setToastStyles("alert alert-danger");
           setTimeout(() => {
             setToastState(false);
           }, 1500);
@@ -53,12 +53,20 @@ console.log('from context wishlist ' ,wishlistData)
           setWishlistData(response.data.wishlist);
           setToastState(true);
           setToastMsg("Product is added to wishlist");
+          setToastStyles("alert alert-success");
           setTimeout(() => {
             setToastState(false);
           }, 1500);
         }
       } catch (err) {
-        console.log(err);
+        if (err.response.status === 500) {
+          setToastState(true);
+          setToastMsg("Login first");
+          setToastStyles("alert alert-warning");
+          setTimeout(() => {
+            setToastState(false);
+          }, 1500);
+        }
       }
     }
   };
@@ -68,7 +76,7 @@ console.log('from context wishlist ' ,wishlistData)
       value={{
         wishlistDataHandler,
         wishlistData,
-        setWishlistData
+        setWishlistData,
       }}
     >
       {children}
@@ -76,4 +84,6 @@ console.log('from context wishlist ' ,wishlistData)
   );
 };
 
-export { WishlistProvider, WishlistContext };
+const useWishlist = () => useContext(WishlistContext);
+
+export { WishlistProvider, WishlistContext, useWishlist };
