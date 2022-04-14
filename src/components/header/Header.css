@@ -9,6 +9,14 @@
   background: none;
 }
 
+.navbar-title {
+  gap: 5px;
+}
+
+.burger-icon {
+  display: none;
+}
+
 .bg-num {
   top: -0.07rem;
   background-color: var(--COLOR-ERROR);
@@ -16,4 +24,25 @@
 
 .bg-icon {
   color: var(--COLOR-FT);
+}
+
+.navbar {
+  justify-content: space-between;
+}
+
+.navbar-title {
+  margin-left: 1.5rem;
+}
+
+.navbar-icons {
+  margin-right: 1.5rem;
+}
+
+.navbar-input {
+  width: 100%;
+}
+
+.navbar-search {
+  justify-content: flex-start;
+  flex-wrap: nowrap;
 }

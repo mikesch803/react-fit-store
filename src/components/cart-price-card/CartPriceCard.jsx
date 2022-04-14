@@ -13,7 +13,7 @@ export function CartPriceCard() {
       {state.cartData.length !== 0 && (
         <div className="cart-price-detail">
           <h3 className="txt-left">Price details</h3>
-          <div className="card card-vrt card-txt">
+          <div className="card card-vrt card-txt card-price">
             <p>
               Price ({state.cartData.length}){" "}
               <span>Rs {allProductTotalMrp(state.cartData)}</span>

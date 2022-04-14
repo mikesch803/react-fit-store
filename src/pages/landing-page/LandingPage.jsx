@@ -27,28 +27,27 @@ export function LandingPage() {
           alt="landing-poster"
           className="img-resp"
         />
-      </main>
-
-      <section className="section-home">
         <h2 className="txt-center brand-heading">Feature Brands</h2>
-        <div className="section-brands">
+        <ul className="section-brands">
           {brands.map((item) => {
             const { brand, src, _id } = item;
             return (
-              <Link to="/shop" key={_id}>
-                <div
-                  className="card card-vrt"
-                  onClick={() => dispatch({ type: "BRAND", payload: brand })}
-                >
-                  <div className="card-img-container">
-                    <img className="card-img" src={src} alt="brands" />
+              <li>
+                <Link to="/shop" key={_id}>
+                  <div
+                    className="card card-vrt"
+                    onClick={() => dispatch({ type: "BRAND", payload: brand })}
+                  >
+                    <div className="card-img-container">
+                      <img className="card-img" src={src} alt="brands" />
+                    </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </li>
             );
           })}
-        </div>
-      </section>
+        </ul>
+      </main>
     </div>
   );
 }

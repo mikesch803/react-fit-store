@@ -1,15 +1,22 @@
 import React from "react";
+import "./ProductCard.css";
 import { HeartIcon, RatingIcon, WishlistOutlineIcon } from "../../icons/icons";
 import { Link } from "react-router-dom";
 import { useCart, useFilter, useWishlist } from "../../context";
 import { checkInCart, checkInWishlist } from "../../utils/functions";
 
-export function ProductCard() {
+export function ProductCard({ filterHandler }) {
   const { getSortedArr } = useFilter();
   const { wishlistDataHandler, wishlistData } = useWishlist();
   const { state, addToCartHandler } = useCart();
   return (
     <div className="product-component">
+      <h2 className="product-section-title txt-left">
+        Showing all products
+        <button className="btn btn-primary btn-filter" onClick={filterHandler}>
+          filter
+        </button>
+      </h2>
       <ul className="product-list">
         {getSortedArr.map((item) => {
           const { src, title, brand, offer_price, mrp, _id, rating } = item;
@@ -52,8 +59,7 @@ export function ProductCard() {
                   className="card-dismis-btn"
                   onClick={() => wishlistDataHandler(item)}
                 >
-                  {checkInWishlist(wishlistData, item)
-                  ? (
+                  {checkInWishlist(wishlistData, item) ? (
                     <HeartIcon />
                   ) : (
                     <WishlistOutlineIcon />
