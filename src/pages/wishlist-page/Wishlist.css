@@ -1,13 +1,11 @@
 .grid-layout-wishlist {
   display: grid;
   min-height: 100vh;
-  grid-template-areas:
-    "wishlist wishlist wishlist"
-    "wishlist wishlist wishlist";
+  grid-template-areas: "... main ...";
 }
 
 .wishlist {
-  grid-area: wishlist;
+  grid-area: main;
 }
 
 .wishlist-container {
@@ -15,14 +13,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 5px;
 }
 
 .wishlist > h2 {
   margin: 1rem;
-}
-
-.wishlist-container > li {
-  margin: 0.5rem;
 }
 
 .card-dismis-btn {
@@ -56,4 +51,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+@media only screen and (max-width: 650px) {
+  .card-hz {
+    width: 25rem;
+  }
 }

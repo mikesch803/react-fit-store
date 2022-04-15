@@ -13,8 +13,10 @@ export function CartProductCard() {
 
   return (
     <section className="section-cart-left">
-      <h3 className="txt-left cart-left-title">My cart ({state.cartData.length})</h3>
       <ul className="cart-product-qty">
+        <h3 className="txt-left cart-left-title">
+          My cart ({state.cartData.length})
+        </h3>
         {state.cartData.map((item) => {
           const { src, title, brand, mrp, offer_price, _id, qty } = item;
           return (
@@ -59,8 +61,7 @@ export function CartProductCard() {
                     >
                       &times;
                     </span>
-                    {checkInWishlist(wishlistData, item)
-                     && (
+                    {!checkInWishlist(wishlistData, item) && (
                       <button
                         className="card-cart btn btn-outline "
                         onClick={() => {

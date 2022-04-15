@@ -60,6 +60,7 @@ export function Signup() {
 
   return (
     <div className="grid-layout-signup">
+      <main className="form-main">
       <form
         className="form form-signup"
         onSubmit={(e) => {
@@ -157,6 +158,7 @@ export function Signup() {
           Already have an account
         </Link>
       </form>
+      </main>
     </div>
   );
 }

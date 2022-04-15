@@ -1,13 +1,20 @@
 .grid-layout-login {
   display: grid;
-  min-height: 100vh;
-  grid-template-areas:
-    "header header header"
-    "... login ...";
+  min-height: 80vh;
+  grid-template-areas: "... main ...";
+}
+
+.form-main {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .form-login {
-  grid-area: login;
+  max-width: 40rem;
+  width: 100%;
   padding: 1rem;
   justify-content: center;
   background-color: var(--COLOR-FT);
