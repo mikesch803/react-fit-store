@@ -24,7 +24,6 @@ export function Login() {
 
         if (response.status === 200) {
           localStorage.setItem("token", response.data.encodedToken);
-          localStorage.setItem("user", JSON.stringify(response.data.foundUser));
           setLogin(true);
           navigate(location?.state?.from?.pathname || "/");
           setToastState(true);

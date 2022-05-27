@@ -1,7 +1,7 @@
 import React from "react";
 import "./ProductCard.css";
 import { HeartIcon, RatingIcon, WishlistOutlineIcon } from "../../icons/icons";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useCart, useFilter, useWishlist } from "../../context";
 import { checkInCart, checkInWishlist } from "../../utils/functions";
 
@@ -9,7 +9,6 @@ export function ProductCard({ filterHandler }) {
   const { getSortedArr } = useFilter();
   const { wishlistDataHandler, wishlistData } = useWishlist();
   const { state, addToCartHandler } = useCart();
-  const navigate = useNavigate();
   return (
     <div className="product-component">
       <h2 className="product-section-title txt-left">
@@ -24,8 +23,8 @@ export function ProductCard({ filterHandler }) {
           return (
             <li key={_id}>
               <div className="card card-vrt card-dismis">
-                <div className="card-img-container" >
-                  <img className="card-img" src={src} alt={title} onClick={()=>navigate(`/product/${_id}`)}/>
+                <div className="card-img-container">
+                  <img className="card-img" src={src} alt={title} />
                 </div>
                 <div className="card-desc txt-left">
                   <h3 className="card-desc-title">

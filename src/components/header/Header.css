@@ -45,5 +45,4 @@
 .navbar-search {
   justify-content: flex-start;
   flex-wrap: nowrap;
-  border-radius: var(--BORDER-RADIUS);
 }

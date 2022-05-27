@@ -34,7 +34,6 @@ export function Signup() {
         }
 
         localStorage.setItem("token", response.data.encodedToken);
-        localStorage.setItem("user", JSON.stringify(response.data.createdUser));
       } catch (error) {
         console.log(error);
       }
@@ -61,6 +60,7 @@ export function Signup() {
 
   return (
     <div className="grid-layout-signup">
+      <main className="form-main">
       <form
         className="form form-signup"
         onSubmit={(e) => {
@@ -158,6 +158,7 @@ export function Signup() {
           Already have an account
         </Link>
       </form>
+      </main>
     </div>
   );
 }
