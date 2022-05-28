@@ -27,9 +27,5 @@ export const sortProducts = (productData, state) => {
     sortArr = sortArr.filter((item) => item.offer_price < state.priceRange);
   }
 
-  if(state.search) {
-    sortArr = sortArr.filter(item => item.brand.toLowerCase().match(state.search.toLowerCase()) || item.title.toLowerCase().match(state.search.toLowerCase()))
-  }
-
   return sortArr;
 };

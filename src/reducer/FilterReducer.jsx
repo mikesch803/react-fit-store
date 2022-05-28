@@ -26,12 +26,6 @@ export const filterReducer = (state, action) => {
         priceRange: action.payload,
       };
 
-    case "SEARCH":
-      return {
-        ...state,
-        search: action.payload
-      }
-
     case "CLEAR":
       return {
         ...state,
@@ -39,7 +33,7 @@ export const filterReducer = (state, action) => {
         available: false,
         priceRange: 1501,
         brand: [],
-        rating: null
+        rating: null,
       };
 
     default:
