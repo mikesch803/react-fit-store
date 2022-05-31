@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import { CartPriceCard, CartProductCard } from "../../components";
 import { useCart } from "../../context";

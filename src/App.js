@@ -28,8 +28,8 @@ function App() {
         <Route path="/product/:ProductId" element={<SingleProduct/>}/>
         <Route path="*" element={<NotFound />} />
         <Route element={<Auth />}>
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/cart" element={<Cart />}/>
+          <Route path="/wishlist" element={<Wishlist />}/>
           <Route path="/profile" element={<Profile />} />
         </Route>
           <Route path="/login" element={<Login />} />

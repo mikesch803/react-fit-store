@@ -30,7 +30,6 @@ const LoginProvider = ({ children }) => {
 
   const guestLoginHandler = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(`/api/auth/login`, {
         email: "mikesch803@gmail.com",
@@ -50,7 +49,6 @@ const LoginProvider = ({ children }) => {
         }, 1500);
       }
     } catch (error) {
-      console.log(error);
     }
   };
 

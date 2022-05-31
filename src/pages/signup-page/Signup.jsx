@@ -8,8 +8,7 @@ import { PassWordNotShowIcon, PassWordShowIcon } from "../../icons/icons";
 import { ToastContext } from "../../context/toast-context";
 import { useTitle, useValidation } from "../../hooks";
 export function Signup() {
-
-  useTitle('Signup')
+  useTitle("Signup");
 
   const { setToastMsg, setToastState } = useContext(ToastContext);
   const { errMsg, formValidation } = useValidation();
@@ -38,8 +37,7 @@ export function Signup() {
         }
         localStorage.setItem("token", response.data.encodedToken);
         localStorage.setItem("user", JSON.stringify(response.data.createdUser));
-      } catch (error) {
-      }
+      } catch (error) {}
     }
   };
 
@@ -83,7 +81,7 @@ export function Signup() {
           onChange={(e) => dispatch({ type: "ADD_FIELD", payload: e.target })}
           required
         />
-          <small className="form-error">{errMsg.email}</small>
+        <small className="form-error">{errMsg.email}</small>
         <div className="parent-div">
           <input
             type={state.passwordType}
@@ -104,9 +102,7 @@ export function Signup() {
             )}
           </span>
         </div>
-          <small className="form-error">
-         {errMsg.password}
-          </small>
+        <small className="form-error">{errMsg.password}</small>
         <div className="parent-div">
           <input
             type={state.passwordType}
@@ -127,7 +123,7 @@ export function Signup() {
             )}
           </span>
         </div>
-          <small className="form-error">{errMsg.confirmPassword}</small>
+        <small className="form-error">{errMsg.confirmPassword}</small>
 
         <div className="form-checkbox signup-checkbox">
           <label>
