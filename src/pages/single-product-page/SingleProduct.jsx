@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { useCart, useFilter, useWishlist } from "../../context";
 import { useTitle } from "../../hooks/useTitle";

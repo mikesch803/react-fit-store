@@ -3,7 +3,6 @@ import "./Wishlist.css";
 import { useCart, useWishlist } from "../../context";
 import { RatingIcon } from "../../icons/icons";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { checkInCart } from "../../utils/functions/checkInCart";
 import { useTitle } from "../../hooks/useTitle";
 
