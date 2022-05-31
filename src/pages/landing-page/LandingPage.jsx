@@ -1,24 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./LandingPage.css";
 import { Link } from "react-router-dom";
 import { useFilter } from "../../context";
-import axios from "axios";
+import { useTitle } from "../../hooks/useTitle";
 
 export function LandingPage() {
+  const { getAllCategories, brands } = useFilter();
   const { dispatch } = useFilter();
-  const [brands, setBrands] = useState([]);
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.get("/api/categories");
-        setBrands(response.data.categories);
-        dispatch({ type: "CLEAR" });
-      } catch (err) {
-        console.error(err);
-      }
-    })();
+    getAllCategories();
   }, []);
-
+  useTitle("Online Ecommerce Site");
   return (
     <div className="grid-layout-home">
       <main className="main-home">
@@ -32,8 +24,8 @@ export function LandingPage() {
           {brands.map((item) => {
             const { brand, src, _id } = item;
             return (
-              <li>
-                <Link to="/shop" key={_id}>
+              <li key={_id}>
+                <Link to="/shop">
                   <div
                     className="card card-vrt"
                     onClick={() => dispatch({ type: "BRAND", payload: brand })}

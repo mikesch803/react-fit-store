@@ -5,8 +5,12 @@ import axios from "axios";
 import { useLogin, useToast } from "../../context";
 import { PassWordNotShowIcon, PassWordShowIcon } from "../../icons/icons";
 import { AuthReducer } from "../../reducer/AuthReducer";
+import { useTitle, useValidation } from "../../hooks";
 
 export function Login() {
+  useTitle("Login");
+
+  const { errMsg, formValidation } = useValidation();
   const { setToastMsg, setToastState, setToastStyles } = useToast();
   const [state, dispatch] = useReducer(AuthReducer, {
     field: {},
@@ -49,7 +53,13 @@ export function Login() {
   return (
     <div className="grid-layout-login">
       <main className="form-main">
-        <form className="form form-login" onSubmit={(e) => loginUserHandler(e)}>
+        <form
+          className="form form-login"
+          onSubmit={(e) => {
+            formValidation(state.field.email, state.field.password);
+            loginUserHandler(e);
+          }}
+        >
           <h2 className="title-form">Login</h2>
           <input
             required
@@ -59,9 +69,8 @@ export function Login() {
             name="email"
             onChange={(e) => dispatch({ type: "ADD_FIELD", payload: e.target })}
           />
-          {state.emailErrState && (
-            <small className="form-error">email invalid</small>
-          )}
+
+          <small className="form-error">{errMsg.email}</small>
           <div className="parent-div">
             <input
               required
@@ -84,11 +93,7 @@ export function Login() {
               )}
             </span>
           </div>
-          {state.passwordErrState && (
-            <small className="form-error">
-              Password should be more than 8 character
-            </small>
-          )}
+          <small className="form-error">{errMsg.password}</small>
           <div className="form-checkbox">
             <label>
               <input type="checkbox" /> Remember me

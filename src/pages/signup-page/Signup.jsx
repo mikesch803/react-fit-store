@@ -6,9 +6,13 @@ import { useLogin } from "../../context";
 import { AuthReducer } from "../../reducer/AuthReducer";
 import { PassWordNotShowIcon, PassWordShowIcon } from "../../icons/icons";
 import { ToastContext } from "../../context/toast-context";
+import { useTitle, useValidation } from "../../hooks";
 export function Signup() {
-  const { setToastMsg, setToastState } = useContext(ToastContext);
 
+  useTitle('Signup')
+
+  const { setToastMsg, setToastState } = useContext(ToastContext);
+  const { errMsg, formValidation } = useValidation();
   const [state, dispatch] = useReducer(AuthReducer, {
     field: {},
     passwordType: "password",
@@ -32,29 +36,9 @@ export function Signup() {
             setToastState(false);
           }, 1500);
         }
-
         localStorage.setItem("token", response.data.encodedToken);
       } catch (error) {
-        console.log(error);
       }
-    }
-
-    if (state.field.email.indexOf("@") === -1) {
-      dispatch({ type: "EMAIL_ERR" });
-    } else {
-      dispatch({ type: "EMAIL_ERR" });
-    }
-
-    if (state.field.password.length < 8) {
-      dispatch({ type: "PASSWORD_ERR" });
-    } else {
-      dispatch({ type: "PASSWORD_ERR" });
-    }
-
-    if (state.field.password !== state.field.confirmPassword) {
-      dispatch({ type: "CONFIRM_PASSWORD_ERR" });
-    } else {
-      dispatch({ type: "CONFIRM_PASSWORD_ERR" });
     }
   };
 
@@ -64,6 +48,11 @@ export function Signup() {
       <form
         className="form form-signup"
         onSubmit={(e) => {
+          formValidation(
+            state.field.email,
+            state.field.password,
+            state.field.confirmPassword
+          );
           signupHandler(e);
         }}
       >
@@ -94,9 +83,7 @@ export function Signup() {
           onChange={(e) => dispatch({ type: "ADD_FIELD", payload: e.target })}
           required
         />
-        {state.emailErrState && (
-          <small className="form-error">invalid mail</small>
-        )}
+          <small className="form-error">{errMsg.email}</small>
         <div className="parent-div">
           <input
             type={state.passwordType}
@@ -117,11 +104,9 @@ export function Signup() {
             )}
           </span>
         </div>
-        {state.passwordErrState && (
           <small className="form-error">
-            Password should be more than 8 character
+         {errMsg.password}
           </small>
-        )}
         <div className="parent-div">
           <input
             type={state.passwordType}
@@ -142,9 +127,8 @@ export function Signup() {
             )}
           </span>
         </div>
-        {state.confirmPasswordErrState && (
-          <small className="form-error">Password did not matched</small>
-        )}
+          <small className="form-error">{errMsg.confirmPassword}</small>
+
         <div className="form-checkbox signup-checkbox">
           <label>
             <input type="checkbox" required /> I accepted all terms and

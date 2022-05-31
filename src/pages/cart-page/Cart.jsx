@@ -2,30 +2,16 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { CartPriceCard, CartProductCard } from "../../components";
 import { useCart } from "../../context";
+import { useTitle } from "../../hooks/useTitle";
 import "./Cart.css";
 
 export function Cart() {
-  const {
-    dispatch,
+  const { getCart,
   } = useCart()
-
-  const encodedToken = localStorage.getItem("token");
+  useTitle('Cart')
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.get("/api/user/cart", {
-          headers: {
-            authorization: encodedToken,
-          },
-        });
-        if (response.status === 200) {
-          dispatch({ type: "SET_CART", payload: response.data.cart });
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    })();
-  }, [encodedToken, dispatch]);
+    getCart();
+  }, []);
 
   return (
     <div className="grid-layout-cart">
