@@ -5,29 +5,15 @@ import { RatingIcon } from "../../icons/icons";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { checkInCart } from "../../utils/functions/checkInCart";
+import { useTitle } from "../../hooks/useTitle";
 
 export function Wishlist() {
-  const { wishlistData, wishlistDataHandler, setWishlistData } = useWishlist();
+  const { getWishlist, wishlistData, wishlistDataHandler } = useWishlist();
   const { state, addToCartHandler } = useCart();
-
-  const encodedToken = localStorage.getItem("token");
+  useTitle('Wishlist')
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.get("/api/user/wishlist", {
-          headers: {
-            authorization: encodedToken,
-          },
-        });
-
-        if (response.status === 200) {
-          setWishlistData(response.data.wishlist);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    })();
-  }, [encodedToken, setWishlistData]);
+    getWishlist();
+  }, []);
 
   return (
     <div className="grid-layout-wishlist">
@@ -37,8 +23,8 @@ export function Wishlist() {
           {wishlistData.map((item) => {
             const { _id, src, title, brand, offer_price, mrp, rating } = item;
             return (
-              <li>
-                <div className="card card-hz card-dismis" key={_id}>
+              <li key={_id}>
+                <div className="card card-hz card-dismis" >
                   <div className="card-img-container card-img-hz">
                     <img className="card-img" src={src} alt="track-suit" />
                   </div>

@@ -9,7 +9,6 @@ export function Header() {
   const { dispatch } = useFilter();
   const { login } = useLogin();
   return (
-    <header className="header">
       <div className="navbar">
         <h1 className="navbar-title navbar-child">
           <Link to="/" onClick={() => dispatch({ type: "CLEAR" })}>
@@ -45,6 +44,5 @@ export function Header() {
           </Link>
         </div>
       </div>
-    </header>
   );
 }

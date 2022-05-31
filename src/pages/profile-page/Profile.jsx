@@ -1,9 +1,10 @@
 import React from "react";
 import { useLogin } from "../../context";
+import { useTitle } from "../../hooks/useTitle";
 import "./Profile.css";
 export function Profile() {
   const { user, logoutHandler } = useLogin();
-
+useTitle('Profile')
   return (
     <div className="profile-page">
       <main className="profile-container ft-grey">

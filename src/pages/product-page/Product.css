@@ -13,11 +13,11 @@
     grid-template-areas: "product product product";
   }
 
-  .header {
+  /* .header {
     position: sticky;
     top: 0;
     z-index: 2;
-  }
+  } */
 
   .aside-product {
     display: none;

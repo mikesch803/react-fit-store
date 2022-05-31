@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { useCart, useFilter, useWishlist } from "../../context";
+import { useTitle } from "../../hooks/useTitle";
 import { RatingIcon } from "../../icons/icons";
 import { checkInCart, checkInWishlist } from "../../utils/functions";
 import "./SingleProduct.css";
@@ -14,6 +15,8 @@ export function SingleProduct() {
     getCurrentProductHandler(ProductId);
   }, []);
 
+  useTitle(`Product`)
+  
   if (currentProduct === null) {
     return <Navigate to="/shop" />;
   }

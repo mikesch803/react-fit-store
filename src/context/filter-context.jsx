@@ -1,7 +1,6 @@
 import {
   createContext,
   useContext,
-  useEffect,
   useReducer,
   useState,
 } from "react";
@@ -13,16 +12,21 @@ const FilterContext = createContext();
 const FilterProvider = ({ children }) => {
   const [productData, SetProductData] = useState([]);
   const [currentProduct, setCurrentProduct] = useState({});
-  useEffect(() => {
-    (async () => {
-      try {
-        const result = await axios.get("/api/products");
-        SetProductData(result.data.products);
-      } catch (err) {
-        console.log(err);
-      }
-    })();
-  }, []);
+  const [brands, setBrands] = useState([]);
+  const getAllProducts = async () => {
+    try {
+      const result = await axios.get("/api/products");
+      SetProductData(result.data.products);
+    } catch (err) {}
+  };
+
+  const getAllCategories = async () => {
+    try {
+      const response = await axios.get("/api/categories");
+      setBrands(response.data.categories);
+      dispatch({ type: "CLEAR" });
+    } catch (err) {}
+  };
 
   const getCurrentProductHandler = async (id) => {
     try {
@@ -31,7 +35,6 @@ const FilterProvider = ({ children }) => {
         setCurrentProduct(response.data.product);
       }
     } catch (err) {
-      console.error(err);
     }
   };
 
@@ -51,6 +54,9 @@ const FilterProvider = ({ children }) => {
         getSortedArr,
         dispatch,
         state,
+        getAllProducts,
+        getAllCategories,
+        brands,
         getCurrentProductHandler,
         currentProduct,
       }}
