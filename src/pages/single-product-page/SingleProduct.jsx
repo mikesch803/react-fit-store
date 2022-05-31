@@ -13,7 +13,7 @@ export function SingleProduct() {
 
   useEffect(() => {
     getCurrentProductHandler(ProductId);
-  }, []);
+  },[]);
 
   useTitle(`Product`)
   

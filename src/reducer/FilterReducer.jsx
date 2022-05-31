@@ -29,7 +29,7 @@ export const filterReducer = (state, action) => {
     case "SEARCH":
       return {
         ...state,
-        search: action.payload
+        search:action.payload
       }
 
     case "CLEAR":

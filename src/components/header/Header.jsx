@@ -16,7 +16,7 @@ export function Header() {
           </Link>
         </h1>
         <div className="navbar-search navbar-child">
-          <input type="text" placeholder="search products, brands..." className="navbar-input" onChange={(e)=>dispatch({type:"SEARCH", payload:e.target.value})}/>
+          <input type="text" placeholder="search products, brands..." className="navbar-input"  onChange={(e)=>dispatch({type:"SEARCH", payload:e.target.value})}/>
           <SearchIcon />
         </div>
         <div className="navbar-icons navbar-child">
