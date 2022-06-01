@@ -1,24 +1,11 @@
 .grid-layout-home {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
   min-height: 100vh;
-  grid-template-areas:
-    "header header header"
-    "main-home main-home main-home"
-    "bottom bottom bottom"
-    "footer footer footer";
+  grid-template-areas: "main main main";
 }
 
 .main-home {
-  grid-area: main-home;
-}
-
-.main-txt {
-  position: absolute;
-  top: 2;
-  left: 0;
-  right: 0;
-  margin: 30rem;
+  grid-area: main;
 }
 
 .footer-home p {
@@ -26,20 +13,6 @@
   justify-content: center;
   align-items: center;
   margin: 2rem;
-}
-
-.img-home-right,
-.img-home-left {
-  width: 85%;
-  object-fit: contain;
-}
-
-.main-home h1 {
-  font-size: 7rem;
-}
-
-.main-home h2 {
-  font-size: 4rem;
 }
 
 .section-home {
@@ -53,6 +26,8 @@
 .section-brands {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 5px;
 }
 
 .brand-heading {

@@ -1,0 +1,41 @@
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  list-style-type: none;
+}
+
+.product-section-title {
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.btn-filter {
+  margin-left: auto;
+  display: none;
+}
+
+.product-component {
+  margin: 1rem;
+}
+
+.card {
+  border: 1px solid var(--COLOR-FT);
+}
+
+.card-img {
+  padding: 0;
+  object-fit: cover;
+}
+
+.card-dismis-btn {
+  font-size: 1.5rem;
+}
+
+.card-desc-title {
+  display: flex;
+}
+
+.m-left {
+  margin-left: auto;
+}

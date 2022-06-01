@@ -3,15 +3,18 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Login.css";
 import axios from "axios";
 import { useLogin, useToast } from "../../context";
-import { PassWordNotShowIcon } from "../../icons/icons";
+import { PassWordNotShowIcon, PassWordShowIcon } from "../../icons/icons";
 import { AuthReducer } from "../../reducer/AuthReducer";
+import { useTitle, useValidation } from "../../hooks";
 
 export function Login() {
+  useTitle("Login");
+
+  const { errMsg, formValidation } = useValidation();
   const { setToastMsg, setToastState, setToastStyles } = useToast();
   const [state, dispatch] = useReducer(AuthReducer, {
     field: {},
     passwordType: "password",
-    showPasswordIcon: <PassWordNotShowIcon />,
   });
   const { setLogin, guestLoginHandler } = useLogin();
   const location = useLocation();
@@ -25,6 +28,7 @@ export function Login() {
 
         if (response.status === 200) {
           localStorage.setItem("token", response.data.encodedToken);
+          localStorage.setItem("user", JSON.stringify(response.data.foundUser));
           setLogin(true);
           navigate(location?.state?.from?.pathname || "/");
           setToastState(true);
@@ -49,61 +53,70 @@ export function Login() {
 
   return (
     <div className="grid-layout-login">
-      <form className="form form-login" onSubmit={(e) => loginUserHandler(e)}>
-        <h2 className="title-form">Login</h2>
-        <input
-          required
-          type="text"
-          placeholder="email"
-          className="form-input"
-          name="email"
-          onChange={(e) => dispatch({ type: "ADD_FIELD", payload: e.target })}
-        />
-        {state.emailErrState && (
-          <small className="form-error">email invalid</small>
-        )}
-        <div className="parent-div">
+      <main className="form-main">
+        <form
+          className="form form-login"
+          onSubmit={(e) => {
+            formValidation(state.field.email, state.field.password);
+            loginUserHandler(e);
+          }}
+        >
+          <h2 className="title-form">Login</h2>
           <input
             required
-            type={state.passwordType}
-            placeholder="password"
-            className="form-input flex-1"
-            name="password"
+            type="text"
+            placeholder="email"
+            className="form-input"
+            name="email"
             onChange={(e) => dispatch({ type: "ADD_FIELD", payload: e.target })}
           />
-          <span
-            className="form-passwordeye"
-            onClick={() => dispatch({ type: "CHANGE_TYPE" })}
+
+          <small className="form-error">{errMsg.email}</small>
+          <div className="parent-div">
+            <input
+              required
+              type={state.passwordType}
+              placeholder="password"
+              className="form-input flex-1"
+              name="password"
+              onChange={(e) =>
+                dispatch({ type: "ADD_FIELD", payload: e.target })
+              }
+            />
+            <span
+              className="form-passwordeye"
+              onClick={() => dispatch({ type: "CHANGE_TYPE" })}
+            >
+              {state.passwordType === "text" ? (
+                <PassWordShowIcon />
+              ) : (
+                <PassWordNotShowIcon />
+              )}
+            </span>
+          </div>
+          <small className="form-error">{errMsg.password}</small>
+          <div className="form-checkbox">
+            <label>
+              <input type="checkbox" /> Remember me
+            </label>
+            <Link to="#" className="btn btn-link">
+              Forget password?
+            </Link>
+          </div>
+          <button className="btn btn-primary form-btn" type="submit">
+            login
+          </button>
+          <button
+            className="btn btn-outline form-btn"
+            onClick={(e) => guestLoginHandler(e)}
           >
-            {state.showPasswordIcon}
-          </span>
-        </div>
-        {state.passwordErrState && (
-          <small className="form-error">
-            Password should be more than 8 character
-          </small>
-        )}
-        <div className="form-checkbox">
-          <label>
-            <input type="checkbox" /> Remember me
-          </label>
-          <Link to="#" className="btn btn-link">
-            Forget password?
+            guest login
+          </button>
+          <Link to="/signup" className="btn btn-link link-account">
+            create a new account
           </Link>
-        </div>
-        <button className="btn btn-primary form-btn" type="submit">
-          login
-        </button>
-        <button
-          className="btn btn-outline form-btn"
-          onClick={(e) => guestLoginHandler(e)}
-        >
-          guest login
-        </button>
-        <Link to="/signup" className="btn btn-link link-account">
-          create a new account
-        </Link>
-      </form>
+        </form>
+      </main>
     </div>
   );
 }

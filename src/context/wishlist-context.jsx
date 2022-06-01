@@ -5,12 +5,27 @@ import { ToastContext } from "./toast-context";
 const WishlistContext = createContext();
 
 const WishlistProvider = ({ children }) => {
+  const encodedToken = localStorage.getItem("token");
   const [wishlistData, setWishlistData] = useState([]);
 
   const { setToastMsg, setToastState, setToastStyles } =
     useContext(ToastContext);
+
+  const getWishlist = async () => {
+    try {
+      const response = await axios.get("/api/user/wishlist", {
+        headers: {
+          authorization: encodedToken,
+        },
+      });
+
+      if (response.status === 200) {
+        setWishlistData(response.data.wishlist);
+      }
+    } catch (err) {}
+  };
+
   const wishlistDataHandler = async (product) => {
-    const encodedToken = localStorage.getItem("token");
     const itemIndex = wishlistData.findIndex(
       (item) => item._id === product._id
     );
@@ -34,7 +49,6 @@ const WishlistProvider = ({ children }) => {
           }, 1500);
         }
       } catch (err) {
-        console.log(err);
       }
     } else {
       try {
@@ -77,6 +91,7 @@ const WishlistProvider = ({ children }) => {
         wishlistDataHandler,
         wishlistData,
         setWishlistData,
+        getWishlist,
       }}
     >
       {children}

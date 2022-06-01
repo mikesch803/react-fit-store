@@ -1,24 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./LandingPage.css";
 import { Link } from "react-router-dom";
 import { useFilter } from "../../context";
-import axios from "axios";
+import { useTitle } from "../../hooks/useTitle";
 
 export function LandingPage() {
+  const { getAllCategories, brands } = useFilter();
   const { dispatch } = useFilter();
-  const [brands, setBrands] = useState([]);
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.get("/api/categories");
-        setBrands(response.data.categories);
-        dispatch({ type: "CLEAR" });
-      } catch (err) {
-        console.error(err);
-      }
-    })();
+    getAllCategories();
   }, []);
-
+  useTitle("Online Ecommerce Site");
   return (
     <div className="grid-layout-home">
       <main className="main-home">
@@ -27,28 +19,27 @@ export function LandingPage() {
           alt="landing-poster"
           className="img-resp"
         />
-      </main>
-
-      <section className="section-home">
         <h2 className="txt-center brand-heading">Feature Brands</h2>
-        <div className="section-brands">
+        <ul className="section-brands">
           {brands.map((item) => {
             const { brand, src, _id } = item;
             return (
-              <Link to="/shop" key={_id}>
-                <div
-                  className="card card-vrt"
-                  onClick={() => dispatch({ type: "BRAND", payload: brand })}
-                >
-                  <div className="card-img-container">
-                    <img className="card-img" src={src} alt="brands" />
+              <li key={_id}>
+                <Link to="/shop">
+                  <div
+                    className="card card-vrt"
+                    onClick={() => dispatch({ type: "BRAND", payload: brand })}
+                  >
+                    <div className="card-img-container">
+                      <img className="card-img" src={src} alt="brands" />
+                    </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </li>
             );
           })}
-        </div>
-      </section>
+        </ul>
+      </main>
     </div>
   );
 }

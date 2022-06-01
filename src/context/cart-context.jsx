@@ -10,6 +10,20 @@ const CartProvider = ({ children }) => {
     useContext(ToastContext);
   const encodedToken = localStorage.getItem("token");
 
+  const getCart = async () => {
+    try {
+      const response = await axios.get("/api/user/cart", {
+        headers: {
+          authorization: encodedToken,
+        },
+      });
+      if (response.status === 200) {
+        dispatch({ type: "SET_CART", payload: response.data.cart });
+      }
+    } catch (err) {
+    }
+  }
+
   const addToCartHandler = async (item) => {
     try {
       const response = await axios.post(
@@ -62,7 +76,6 @@ const CartProvider = ({ children }) => {
         }, 1500);
       }
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -91,7 +104,6 @@ const CartProvider = ({ children }) => {
         }, 1500);
       }
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -120,7 +132,6 @@ const CartProvider = ({ children }) => {
         }, 1500);
       }
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -134,6 +145,7 @@ const CartProvider = ({ children }) => {
       value={{
         state,
         dispatch,
+        getCart,
         addToCartHandler,
         removeFromCartHandler,
         removeProductQtyHandler,

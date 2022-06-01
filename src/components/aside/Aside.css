@@ -4,8 +4,6 @@
 
 .sidebar-product {
   margin: 2rem;
-  position: sticky;
-  top: 0;
 }
 
 .sidebar,
@@ -21,7 +19,7 @@
 .aside-category > label > input,
 .aside-rating > label > input,
 .aside-sort > label > input,
-.aside-availablity >label >input {
+.aside-availablity > label > input {
   margin-right: 5px;
 }
 
@@ -33,4 +31,11 @@
 
 .aside-filter-clear {
   margin: 1rem;
+}
+
+.category,
+.star,
+.sort,
+.aside-filter-clear {
+  cursor: pointer;
 }

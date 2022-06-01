@@ -1,12 +1,16 @@
-.header {
-  grid-area: header;
-}
-
 .navbar-login,
 .navbar-shop,
 .navbar-title a {
   color: var(--COLOR-FT);
   background: none;
+}
+
+.navbar-title {
+  gap: 5px;
+}
+
+.burger-icon {
+  display: none;
 }
 
 .bg-num {
@@ -16,4 +20,31 @@
 
 .bg-icon {
   color: var(--COLOR-FT);
+}
+
+.navbar {
+  grid-area: header;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+}
+
+.navbar-title {
+  margin-left: 1.5rem;
+}
+
+.navbar-icons {
+  margin-right: 1.5rem;
+}
+
+.navbar-input {
+  width: 100%;
+}
+
+.navbar-search {
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  border-radius: var(--BORDER-RADIUS);
 }
