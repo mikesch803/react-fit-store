@@ -21,19 +21,19 @@ function App() {
   return (
     <div className="App">
       <Header />
-      {toastState && <Toast /> }
+      {toastState && <Toast />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/shop" element={<Product />} />
-        <Route path="/product/:ProductId" element={<SingleProduct/>}/>
+        <Route path="/product/:ProductId" element={<SingleProduct />} />
         <Route path="*" element={<NotFound />} />
         <Route element={<Auth />}>
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/mock" element={<Mockman />} />
       </Routes>
       <Footer />
