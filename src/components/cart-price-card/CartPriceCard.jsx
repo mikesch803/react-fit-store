@@ -5,9 +5,59 @@ import {
   allProductTotalMrp,
   allProductTotalOfferPrice,
 } from "../../utils/functions";
-
+import { default as logo } from "../../assests/images/logo.png";
 export function CartPriceCard() {
-  const { state } = useCart();
+  const { state, clearCart } = useCart();
+  const loadScript = (src) => {
+    return new Promise((resovle) => {
+      const script = document.createElement("script");
+      script.src = src;
+
+      script.onload = () => {
+        resovle(true);
+      };
+
+      script.onerror = () => {
+        resovle(false);
+      };
+
+      document.body.appendChild(script);
+    });
+  };
+
+  const placeOrderHandler = async (amount) => {
+    const res = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
+
+    if (!res) {
+      alert("You are offline... Failed to load Razorpay SDK");
+      return;
+    }
+
+    const options = {
+      key: "rzp_test_9Di64EOn3x67km",
+      currency: "INR",
+      amount: amount * 100,
+      name: "Fit store",
+      description: "Thanks for purchasing",
+      image: `${logo}`,
+
+      handler: function (response) {
+        alert(response.razorpay_payment_id);
+        alert("Payment Successfully");
+        clearCart();
+      },
+      prefill: {
+        name: "Mahendra Chauhan",
+        email: "mahendra@gmail.com",
+        contact: "9999999999",
+      },
+    };
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
+
   return (
     <section className="section-cart-right">
       {state.cartData.length !== 0 && (
@@ -33,7 +83,16 @@ export function CartPriceCard() {
               on this order
             </p>
             <div className="card-btns">
-              <button className="card-cart btn btn-primary">place order</button>
+              <button
+                className="card-cart btn btn-primary"
+                onClick={() =>
+                  placeOrderHandler(
+                    allProductTotalOfferPrice(state.cartData) + 100
+                  )
+                }
+              >
+                place order
+              </button>
             </div>
           </div>
         </div>

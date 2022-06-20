@@ -1,15 +1,13 @@
 import axios from "axios";
 import { createContext, useContext, useState } from "react";
-import { ToastContext } from "./toast-context";
+import { useToast } from "./toast-context";
 
 const WishlistContext = createContext();
 
 const WishlistProvider = ({ children }) => {
   const encodedToken = localStorage.getItem("token");
   const [wishlistData, setWishlistData] = useState([]);
-
-  const { setToastMsg, setToastState, setToastStyles } =
-    useContext(ToastContext);
+  const { toastHandler } = useToast();
 
   const getWishlist = async () => {
     try {
@@ -41,15 +39,9 @@ const WishlistProvider = ({ children }) => {
         );
         if (response.status === 200) {
           setWishlistData(response.data.wishlist);
-          setToastState(true);
-          setToastMsg("Product is removed from wishlist");
-          setToastStyles("alert alert-danger");
-          setTimeout(() => {
-            setToastState(false);
-          }, 1500);
+          toastHandler("Product removed from wishlist", "alert-success");
         }
-      } catch (err) {
-      }
+      } catch (err) {}
     } else {
       try {
         const response = await axios.post(
@@ -65,21 +57,12 @@ const WishlistProvider = ({ children }) => {
         );
         if (response.status === 201) {
           setWishlistData(response.data.wishlist);
-          setToastState(true);
-          setToastMsg("Product is added to wishlist");
-          setToastStyles("alert alert-success");
-          setTimeout(() => {
-            setToastState(false);
-          }, 1500);
+
+          toastHandler("Product added to wishlist", "alert-success");
         }
       } catch (err) {
         if (err.response.status === 500) {
-          setToastState(true);
-          setToastMsg("Login first");
-          setToastStyles("alert alert-warning");
-          setTimeout(() => {
-            setToastState(false);
-          }, 1500);
+          toastHandler("Login first", "alert-warning");
         }
       }
     }

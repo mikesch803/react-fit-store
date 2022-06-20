@@ -1,0 +1,35 @@
+.inner-modal-container {
+  border: 1px solid var(--COLOR-OFFLINE);
+  background-color: var(--COLOR-FT);
+  margin: 5rem;
+  padding: 1rem;
+  max-width: 40rem;
+}
+
+.outer-modal-container {
+  height: 100vh;
+  z-index: 2;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.select-address-container {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin: 1rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.ml-1 {
+  margin-left: 1rem;
+}

@@ -1,7 +1,29 @@
-import React, { useContext } from "react";
-import { ToastContext } from "../../context/toast-context";
 import "./Toast.css";
+import { useEffect } from "react";
+import { useToast } from "../../context";
 export function Toast() {
-  const { toastMsg, toastStyles } = useContext(ToastContext);
-  return <div className={toastStyles}>{toastMsg}</div>;
+  const { removeToastHandler, toastList } = useToast()
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (toastList.length) {
+        removeToastHandler(toastList[0]?.id);
+      }
+    }, 2000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [toastList]);
+
+  return (
+    <div className="toast">
+      {toastList?.map((item) => (
+        <li key={item.id}>
+          <div className={` alert ${item.type}`}>
+            {item.msg}
+          </div>
+        </li>
+      ))}
+    </div>
+  );
 }
