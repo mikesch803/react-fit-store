@@ -114,9 +114,7 @@ const CartProvider = ({ children }) => {
       if (response.status === 200) {
         dispatch({ type: "RESET" });
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const [state, dispatch] = useReducer(cartReducer, {
@@ -134,7 +132,7 @@ const CartProvider = ({ children }) => {
         removeFromCartHandler,
         removeProductQtyHandler,
         addProductQtyHandler,
-        clearCart
+        clearCart,
       }}
     >
       {children}

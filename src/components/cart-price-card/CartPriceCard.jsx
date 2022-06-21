@@ -1,5 +1,6 @@
 import React from "react";
-import { useCart } from "../../context";
+import { useCart, useToast } from "../../context";
+import { useNavigate } from "react-router-dom";
 import {
   allProductTotalDiscount,
   allProductTotalMrp,
@@ -8,17 +9,19 @@ import {
 import { default as logo } from "../../assests/images/logo.png";
 export function CartPriceCard() {
   const { state, clearCart } = useCart();
+  const { toastHandler } = useToast();
+  const navigate = useNavigate();
   const loadScript = (src) => {
-    return new Promise((resovle) => {
+    return new Promise((resolve) => {
       const script = document.createElement("script");
       script.src = src;
 
       script.onload = () => {
-        resovle(true);
+        resolve(true);
       };
 
       script.onerror = () => {
-        resovle(false);
+        resolve(false);
       };
 
       document.body.appendChild(script);
@@ -45,8 +48,9 @@ export function CartPriceCard() {
 
       handler: function (response) {
         alert(response.razorpay_payment_id);
-        alert("Payment Successfully");
+        toastHandler("Payment successful ", "alert-success");
         clearCart();
+        navigate("/shop");
       },
       prefill: {
         name: "Mahendra Chauhan",
