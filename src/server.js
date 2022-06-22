@@ -1,4 +1,5 @@
 import { Server, Model, RestSerializer } from "miragejs";
+import { v4 as uuid } from "uuid";
 import {
   loginHandler,
   signupHandler,
@@ -8,6 +9,7 @@ import {
   getCartItemsHandler,
   removeItemFromCartHandler,
   updateCartItemHandler,
+  clearCartHandler
 } from "./backend/controllers/CartController";
 import {
   getAllCategoriesHandler,
@@ -22,6 +24,12 @@ import {
   getWishlistItemsHandler,
   removeItemFromWishlistHandler,
 } from "./backend/controllers/WishlistController";
+import {
+  getAddressListHandler,
+  addAddressHandler,
+  removeAddressHandler,
+  updateAddressHandler,
+} from "./backend/controllers/AddressController";
 import { categories } from "./backend/db/categories";
 import { products } from "./backend/db/products";
 import { users } from "./backend/db/users";
@@ -38,6 +46,7 @@ export function makeServer({ environment = "development" } = {}) {
       user: Model,
       cart: Model,
       wishlist: Model,
+      address: Model,
     },
 
     // Runs on the start of the server
@@ -49,7 +58,22 @@ export function makeServer({ environment = "development" } = {}) {
       });
 
       users.forEach((item) =>
-        server.create("user", { ...item, cart: [], wishlist: [] })
+        server.create("user", { ...item, cart: [],
+           wishlist: [],
+           addressList: [
+            {
+              _id: uuid(),
+              name: "Mahendra Chauhan",
+              street: "Ward No 1A",
+              city: "Gandhidham",
+              state: "Gujarat",
+              country: "India",
+              pincode: "370201",
+              phone: "9999999999",
+            },
+          ],
+          orders: [],
+           })
       );
 
       categories.forEach((item) => server.create("category", { ...item }));
@@ -77,7 +101,7 @@ export function makeServer({ environment = "development" } = {}) {
         "/user/cart/:productId",
         removeItemFromCartHandler.bind(this)
       );
-
+      this.delete("/user/cart/all", clearCartHandler.bind(this));
       // wishlist routes (private)
       this.get("/user/wishlist", getWishlistItemsHandler.bind(this));
       this.post("/user/wishlist", addItemToWishlistHandler.bind(this));
@@ -85,6 +109,12 @@ export function makeServer({ environment = "development" } = {}) {
         "/user/wishlist/:productId",
         removeItemFromWishlistHandler.bind(this)
       );
+
+  // addresse routes (private)
+   this.get("/user/address", getAddressListHandler.bind(this));
+   this.post("/user/address", addAddressHandler.bind(this));
+   this.post("/user/address/:addressId", updateAddressHandler.bind(this));
+   this.delete("/user/address/:addressId", removeAddressHandler.bind(this));
     },
   });
 }

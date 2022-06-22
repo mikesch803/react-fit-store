@@ -1,0 +1,14 @@
+.address-list {
+    background-color: var(--COLOR-FT);
+    padding: 1rem;
+    border: 1px solid var(--COLOR-SECONDARY);
+    border-radius: var(--BORDER-RADIUS);
+}
+
+.address-list p {
+    display: flex;
+}
+
+.ml-auto {
+    margin-left: auto;
+}

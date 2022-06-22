@@ -1,13 +1,12 @@
 import axios from "axios";
 import { createContext, useContext, useReducer } from "react";
 import { cartReducer } from "../reducer/CartReducer";
-import { ToastContext } from "./toast-context";
+import { useToast } from "./toast-context";
 
 const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-  const { toastMsg, setToastMsg, toastState, setToastState, setToastStyles } =
-    useContext(ToastContext);
+  const { toastHandler } = useToast();
   const encodedToken = localStorage.getItem("token");
 
   const getCart = async () => {
@@ -20,9 +19,8 @@ const CartProvider = ({ children }) => {
       if (response.status === 200) {
         dispatch({ type: "SET_CART", payload: response.data.cart });
       }
-    } catch (err) {
-    }
-  }
+    } catch (err) {}
+  };
 
   const addToCartHandler = async (item) => {
     try {
@@ -39,23 +37,12 @@ const CartProvider = ({ children }) => {
       );
       if (response.status === 201) {
         dispatch({ type: "SET_CART", payload: response.data.cart });
-        setToastState(true);
-        setToastMsg("Product is added to cart");
-        setToastStyles("alert alert-success")
-        setTimeout(() => {
-          setToastState(false);
-        }, 1500);
+        toastHandler("Product is added to cart", "alert-success");
       }
     } catch (err) {
       if (err.response.status === 500) {
-        setToastState(true);
-        setToastMsg("Login first");
-        setToastStyles("alert alert-warning")
-        setTimeout(() => {
-          setToastState(false);
-        }, 1500);
+        toastHandler("Login first", "alert-warning");
       }
-
     }
   };
 
@@ -68,15 +55,9 @@ const CartProvider = ({ children }) => {
       });
       if (response.status === 200) {
         dispatch({ type: "SET_CART", payload: response.data.cart });
-        setToastState(true);
-        setToastMsg("Product is removed from cart");
-        setToastStyles("alert alert-danger")
-        setTimeout(() => {
-          setToastState(false);
-        }, 1500);
+        toastHandler("Product is removed from cart", "alert-danger");
       }
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   const addProductQtyHandler = async (item) => {
@@ -96,15 +77,9 @@ const CartProvider = ({ children }) => {
       );
       if (response.status === 200) {
         dispatch({ type: "SET_QTY", payload: response.data.cart });
-        setToastState(true);
-        setToastMsg(`Quantity for ${item.title} is ${item.qty + 1}`);
-        setToastStyles("alert alert-success")
-        setTimeout(() => {
-          setToastState(false);
-        }, 1500);
+        toastHandler("quantity updated", "alert-success");
       }
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   const removeProductQtyHandler = async (item) => {
@@ -124,15 +99,22 @@ const CartProvider = ({ children }) => {
       );
       if (response.status === 200) {
         dispatch({ type: "SET_QTY", payload: response.data.cart });
-        setToastState(true);
-        setToastMsg(`Quantity for ${item.title} is ${item.qty - 1}`);
-        setToastStyles("alert alert-danger")
-        setTimeout(() => {
-          setToastState(false);
-        }, 1500);
+        toastHandler("Quantity updated", "alert-success");
       }
-    } catch (err) {
-    }
+    } catch (err) {}
+  };
+
+  const clearCart = async () => {
+    try {
+      const response = await axios.delete("/api/user/cart/all", {
+        headers: {
+          authorization: encodedToken,
+        },
+      });
+      if (response.status === 200) {
+        dispatch({ type: "RESET" });
+      }
+    } catch (err) {}
   };
 
   const [state, dispatch] = useReducer(cartReducer, {
@@ -150,8 +132,7 @@ const CartProvider = ({ children }) => {
         removeFromCartHandler,
         removeProductQtyHandler,
         addProductQtyHandler,
-        toastState,
-        toastMsg,
+        clearCart,
       }}
     >
       {children}

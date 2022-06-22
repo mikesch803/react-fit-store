@@ -10,7 +10,7 @@ const LoginContext = createContext();
 const LoginProvider = ({ children }) => {
   const { setWishlistData } = useWishlist();
   const { dispatch } = useCart();
-  const { setToastMsg, setToastState, setToastStyles } = useToast();
+  const { toastHandler } = useToast();
   const [login, setLogin] = useState(localStorage?.token ? true : false);
   const user = JSON.parse(localStorage.getItem('user'));
   const location = useLocation();
@@ -20,12 +20,7 @@ const LoginProvider = ({ children }) => {
     setLogin(false);
     setWishlistData([]);
     dispatch({ type: "RESET" });
-    setToastState(true);
-    setToastMsg("logout sucessfully");
-    setToastStyles("alert alert-success");
-    setTimeout(() => {
-      setToastState(false);
-    }, 1500);
+    toastHandler("Login successfully", "alert-success");
   };
 
   const guestLoginHandler = async (e) => {
@@ -42,12 +37,7 @@ const LoginProvider = ({ children }) => {
         localStorage.setItem("user", JSON.stringify(response.data.foundUser));
         setLogin(true);
         navigate(location?.state?.from?.pathname || '/');
-        setToastState(true);
-        setToastMsg("Signin sucessfully");
-        setToastStyles("alert alert-success");
-        setTimeout(() => {
-          setToastState(false);
-        }, 1500);
+        toastHandler("Login successfully", "alert-success");
       }
     } catch (error) {
       console.log(error);

@@ -3,3 +3,4 @@ export * from './wishlist-context';
 export * from './cart-context';
 export * from './login-context';
 export * from './toast-context';
+export * from './address-context';

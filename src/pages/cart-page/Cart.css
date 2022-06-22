@@ -1,6 +1,6 @@
 .grid-layout-cart {
   display: grid;
-  min-height: 100vh;
+  min-height: 90vh;
   grid-template-areas: "... main-left  main-right ...";
 }
 
@@ -109,4 +109,13 @@
   .cart-price-detail > .card-price {
     width: auto;
   }
+}
+
+.empty-cart {
+  grid-area: main-left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 25rem;
+  margin: auto;
 }

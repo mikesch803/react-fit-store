@@ -8,20 +8,17 @@ import {
   Wishlist,
   NotFound,
   Profile,
+  SingleProduct,
+  Auth,
 } from "./pages";
 import { Route, Routes } from "react-router-dom";
 import Mockman from "mockman-js";
-import { Footer, Header } from "./components";
-import { Auth } from "./pages/auth/Auth";
-import { Toast } from "./components/toast/Toast";
-import { useToast } from "./context";
-import { SingleProduct } from "./pages/single-product-page/SingleProduct";
+import { Footer, Header, Toast } from "./components";
 function App() {
-  const { toastState } = useToast();
   return (
     <div className="App">
       <Header />
-      {toastState && <Toast />}
+      <Toast />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/shop" element={<Product />} />
