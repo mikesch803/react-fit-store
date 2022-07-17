@@ -1,6 +1,7 @@
 .grid-layout-product {
   display: grid;
   min-height: 100vh;
+  grid-template-columns: 250px 1fr;
   grid-template-areas: "aside product product";
 }
 
@@ -13,11 +14,11 @@
     grid-template-areas: "product product product";
   }
 
-  /* .header {
+  .header {
     position: sticky;
     top: 0;
     z-index: 2;
-  } */
+  }
 
   .aside-product {
     display: none;

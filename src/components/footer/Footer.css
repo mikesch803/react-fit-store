@@ -28,3 +28,7 @@ justify-content: center;
   display: flex;
   align-items: center;
 }
+
+.footer-home button ,.footer-socials a {
+  color: white;
+}

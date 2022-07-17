@@ -12,16 +12,22 @@ export function Footer() {
   return (
     <footer className="footer-home">
       <p className="ft-w-300 footer-p">
-        Made with{" "}
-        <span onClick={() => setIcon(icon === "heart" ? "react" : "heart")}>
+        Made with
+        <button className="btn" onClick={() => setIcon(icon === "heart" ? "react" : "heart")}>
           {icon === "heart" ? <HeartIcon /> : <ReactIcon />}
-        </span>
+        </button>
         by Mahendra
       </p>
       <div className="footer-socials">
-        <GithubIcon />
-        <LinkedInIcon />
-        <TwitterIcon />
+        <a href="https://github.com/mikesch803mikesch803">
+          <GithubIcon />
+        </a>
+        <a href="https://www.linkedin.com/in/mahendra-chauhan-b111561b1/">
+          <LinkedInIcon />
+        </a>
+        <a href="https://twitter.com/mikesch_34">
+          <TwitterIcon />
+        </a>
       </div>
     </footer>
   );

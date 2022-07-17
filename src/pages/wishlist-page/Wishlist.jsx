@@ -16,7 +16,16 @@ export function Wishlist() {
 
   return (
     <div className="grid-layout-wishlist">
+    
       <main className="wishlist">
+      {wishlistData.length === 0 ? (
+        <div className="empty-cart">
+          <img
+            src="https://multivendor.amrkart.com/public/not-found.jpg"
+            alt="empty-wishlist"
+          />
+        </div>) :
+        <>
         <h2 className="txt-center">My Wishlist</h2>
         <ul className="wishlist-container">
           {wishlistData.map((item) => {
@@ -66,7 +75,7 @@ export function Wishlist() {
               </li>
             );
           })}
-        </ul>
+        </ul></>}
       </main>
     </div>
   );

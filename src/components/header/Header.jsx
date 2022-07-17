@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart, useFilter, useLogin, useWishlist } from "../../context";
 import { CartIcon, SearchIcon, UserIcon, WishlistIcon } from "../../icons/icons";
@@ -8,6 +8,28 @@ export function Header() {
   const { state } = useCart();
   const { dispatch } = useFilter();
   const { login } = useLogin();
+  const [searchText, setSearchText] = useState();
+  
+  function searchHandler()  {
+    dispatch({type:"SEARCH", payload:searchText})
+  }
+
+   const debounce = (fn,delay)=>{
+    let timer ;
+    return function(){
+      clearTimeout(timer);
+      timer = setTimeout(()=>{
+            fn()
+      },delay)
+    }
+  }
+
+  const debounceFunc = debounce(searchHandler, 3000);
+
+  useEffect(()=>{
+    debounceFunc()
+  },[searchText])
+
   return (
       <div className="navbar">
         <h1 className="navbar-title navbar-child">
@@ -16,7 +38,7 @@ export function Header() {
           </Link>
         </h1>
         <div className="navbar-search navbar-child">
-          <input type="text" placeholder="search products, brands..." className="navbar-input" onChange={(e)=>dispatch({type:"SEARCH", payload:e.target.value})}/>
+          <input type="text" placeholder="search products, brands..." className="navbar-input" onChange={(e)=>setSearchText(e.target.value)}/>
           <SearchIcon />
         </div>
         <div className="navbar-icons navbar-child">

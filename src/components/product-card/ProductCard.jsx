@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ProductCard.css";
 import { HeartIcon, RatingIcon, WishlistOutlineIcon } from "../../icons/icons";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart, useFilter, useWishlist } from "../../context";
 import { checkInCart, checkInWishlist } from "../../utils/functions";
 
@@ -9,6 +9,8 @@ export function ProductCard({ filterHandler }) {
   const { getSortedArr } = useFilter();
   const { wishlistDataHandler, wishlistData } = useWishlist();
   const { state, addToCartHandler } = useCart();
+  const [btnDisable, setBtnDisable] = useState(false);
+
   const navigate = useNavigate();
   return (
     <div className="product-component">
@@ -24,8 +26,13 @@ export function ProductCard({ filterHandler }) {
           return (
             <li key={_id}>
               <div className="card card-vrt card-dismis">
-                <div className="card-img-container" >
-                  <img className="card-img" src={src} alt={title} onClick={()=>navigate(`/product/${_id}`)}/>
+                <div className="card-img-container">
+                  <img
+                    className="card-img"
+                    src={src}
+                    alt={title}
+                    onClick={() => navigate(`/product/${_id}`)}
+                  />
                 </div>
                 <div className="card-desc txt-left">
                   <h3 className="card-desc-title">
@@ -49,7 +56,11 @@ export function ProductCard({ filterHandler }) {
                     ) : (
                       <button
                         className="card-cart btn btn-primary "
-                        onClick={() => addToCartHandler(item)}
+                        disabled={btnDisable}
+                        onClick={() => {
+                          addToCartHandler(item);
+                          setBtnDisable(true);
+                        }}
                       >
                         add to cart
                       </button>

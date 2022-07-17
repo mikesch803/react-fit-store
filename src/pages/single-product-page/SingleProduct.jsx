@@ -16,6 +16,8 @@ export function SingleProduct() {
   }, []);
 
   useTitle(`Product`)
+
+  console.log(currentProduct)
   
   if (currentProduct === null) {
     return <Navigate to="/shop" />;
