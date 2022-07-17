@@ -39,3 +39,10 @@
 .m-left {
   margin-left: auto;
 }
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}

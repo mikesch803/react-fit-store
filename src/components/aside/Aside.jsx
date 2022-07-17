@@ -86,18 +86,6 @@ export function Aside({ asideStyles }) {
             );
           })}
         </div>
-        <div className="aside-availablity">
-          <h3>Availability</h3>
-          <label htmlFor="availablity">
-            <input
-              type="checkbox"
-              id="availablity"
-              checked={state.available}
-              onChange={() => dispatch({ type: "EXCLUDE_OUT_OF_STOCK" })}
-            />
-            exclude out of stock
-          </label>
-        </div>
       </form>
     </aside>
   );

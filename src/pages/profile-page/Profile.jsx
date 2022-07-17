@@ -67,6 +67,7 @@ export function Profile() {
         >
           <h3 className="ft-grey">Add Address</h3>
           <input
+          required
             type="text"
             placeholder="Name"
             className="form-input"
@@ -79,7 +80,7 @@ export function Profile() {
               })
             }
           />
-          <input
+          <input required
             type="text"
             placeholder="Street Area"
             className="form-input"
@@ -92,7 +93,7 @@ export function Profile() {
               })
             }
           />
-          <input
+          <input required
             type="text"
             placeholder="Mobile No"
             className="form-input"
@@ -105,7 +106,7 @@ export function Profile() {
               })
             }
           />
-          <input
+          <input required
             type="text"
             placeholder="Pincode"
             className="form-input"
@@ -118,7 +119,7 @@ export function Profile() {
               })
             }
           />
-          <input
+          <input required
             type="text"
             placeholder="City"
             className="form-input"
@@ -131,7 +132,7 @@ export function Profile() {
               })
             }
           />
-          <input
+          <input required
             type="text"
             placeholder="State"
             className="form-input"
@@ -144,7 +145,7 @@ export function Profile() {
               })
             }
           />
-          <input
+          <input required
             type="text"
             placeholder="Country"
             className="form-input"

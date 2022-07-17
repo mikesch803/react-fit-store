@@ -49,8 +49,8 @@ export function CartProductCard() {
               </button>
             </p>
             <p>
-              {addresses[0]?.steet}, {addresses[0]?.city}-
-              {addresses[0]?.pincode}, {addresses[0]?.state},
+              {addresses[0]?.steet} {addresses[0]?.city}
+               {addresses[0]?.pincode} {addresses[0]?.state}
               {addresses[0]?.country}
             </p>
           </li>

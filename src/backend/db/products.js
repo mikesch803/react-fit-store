@@ -8,7 +8,7 @@ import { v4 as uuid } from "uuid";
 export const products = [
   {
     _id: uuid(),
-    src:"https://cdn.shopify.com/s/files/1/0512/8827/7146/products/ChocoCreamy1_540x.png?v=1625906529",
+    src:"https://cdn.shopify.com/s/files/1/0512/8827/7146/products/1_ea0b348e-769d-49db-8686-518c7cb31baf_540x.jpg?v=1657499381",
     title: "Protein butter",
     brand: "Max Protein",
     mrp: 2000,
@@ -58,7 +58,7 @@ export const products = [
   },
   {
     _id: uuid(),
-    src:"https://cdn.shopify.com/s/files/1/0512/8827/7146/products/Yogurt-Berry-02_ceb60cbf-beba-4b4e-b632-7fe57bae31e4.png?v=1639133605",
+    src:"https://cdn.shopify.com/s/files/1/0512/8827/7146/products/1_7eec4782-1d4e-4155-8438-2dbe4fc9c684_540x.jpg?v=1657503577",
     title: "Protein Bar",
     brand: "Max Protein",
     mrp: 200,
@@ -68,7 +68,7 @@ export const products = [
   },
   {
     _id: uuid(),
-    src:"https://cdn.shopify.com/s/files/1/0512/8827/7146/products/Peanut-Butter-02_6da7b51a-4745-42ba-954a-4f06f038b35c.png?v=1639132893",
+    src:"https://cdn.shopify.com/s/files/1/0512/8827/7146/products/1_8a781496-168b-42ae-81d3-245fb2aa4f1a_540x.jpg?v=1657503694",
     title: "Protein Bar",
     brand: "Max Protein",
     mrp: 300,
@@ -78,7 +78,7 @@ export const products = [
   },
   {
     _id: uuid(),
-    src:"https://cdn.shopify.com/s/files/1/0512/8827/7146/products/Desi-Masala_3e8fcf32-ecdf-49c7-93e3-b251f91410e5.png?v=1611830606",
+    src:"https://cdn.shopify.com/s/files/1/0512/8827/7146/products/1_62459ae9-b34f-4426-b0c4-851dda0c37da_540x.jpg?v=1657295729",
     title: "Protein Chips",
     brand: "Max Protein",
     mrp: 250,

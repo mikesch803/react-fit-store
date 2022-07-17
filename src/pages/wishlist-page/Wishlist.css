@@ -1,6 +1,6 @@
 .grid-layout-wishlist {
   display: grid;
-  min-height: 100vh;
+  height: 80vh;
   grid-template-areas: "... main ...";
 }
 
