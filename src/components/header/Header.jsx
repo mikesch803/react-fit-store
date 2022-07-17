@@ -57,12 +57,12 @@ export function Header() {
 
           <Link to="/wishlist" className="bg btn btn-link navbar-wishlist">
             <WishlistIcon />
-            <span className="bg-num">{login && wishlistData.length}</span>
+            {wishlistData.length > 0 && <span className="bg-num">{login && wishlistData.length>9?9+'+':wishlistData.length}</span>}
           </Link>
 
           <Link to="/cart" className="bg btn btn-link navbar-cart">
             <CartIcon />
-            <span className="bg-num">{login && state.cartData.length}</span>
+            {state.cartData.length > 0 && <span className="bg-num">{login && state.cartData.length>9?9+"+":state.cartData.length}</span>}
           </Link>
         </div>
       </div>
